@@ -11,4 +11,4 @@ This is a project that aims to develop a multi-feature system with user interfac
 2. Design the basic frame the user interface where users can view basic course information
 
 ## Reached Goals
-(Check out the Reached Goals in the wiki page)[https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/wiki/Reached-Goals]
+[Check out the Reached Goals in the wiki page](https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/wiki/Reached-Goals)
