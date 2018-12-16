@@ -11,6 +11,4 @@ This is a project that aims to develop a multi-feature system with user interfac
 2. Design the basic frame the user interface where users can view basic course information
 
 ## Reached Goals
-#### Dec 15th, 2018
-* Setting up the virtual environment
-* Contruct the basic frame of the Course/Lecture/DisLab Classes and select the basic structure of data collection in this project
+(Check out the Reached Goals in the wiki page)[https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/wiki/Reached-Goals]
