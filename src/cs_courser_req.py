@@ -1,4 +1,3 @@
-
 from bs4 import BeautifulSoup
 import requests
 
@@ -24,7 +23,8 @@ def get_course_title(soup):
 
 
 '''
-can't figure out how to get course descripution 
+can't figure out how to get course description
+实在想不出了， 查也查不到， YouTube也没有。。。。期待着你们
 '''
 bubble = soup.find_all('div', {'class':'courseblock'})
 for i in bubble:
