@@ -1,0 +1,536 @@
+***
+### Term
+Search_name | YearTerm 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+2019  Winter Quarter | 2019-03 
+2018  Fall Quarter | 2018-92 
+2018  Summer Session 2 | 2018-76 
+2018  Summer Qtr (COM) | 2018-51 
+2018  10-wk Summer | 2018-39 
+2018  Summer Session 1 | 2018-25 
+2018  Spring Quarter | 2018-14 
+2018  Winter Quarter | 2018-03 
+2017  Fall Quarter | 2017-92 
+2017  Summer Session 2 | 2017-76 
+2017  Summer Qtr (COM) | 2017-51 
+2017  10-wk Summer | 2017-39 
+2017  Summer Session 1 | 2017-25 
+2017  Spring Quarter | 2017-14 
+2017  Winter Quarter | 2017-03 
+2016  Fall Quarter | 2016-92 
+2016  Summer Session 2 | 2016-76 
+2016  Summer Qtr (COM) | 2016-51 
+2016  10-wk Summer | 2016-39 
+2016  Summer Session 1 | 2016-25 
+2016  Spring Quarter | 2016-14 
+2016  Winter Quarter | 2016-03 
+2015  Fall Quarter | 2015-92 
+2015  Summer Session 2 | 2015-76 
+2015  Summer Qtr (COM) | 2015-51 
+2015  10-wk Summer | 2015-39 
+2015  Summer Session 1 | 2015-25 
+2015  Spring Quarter | 2015-14 
+2015  Winter Quarter | 2015-03 
+2014  Fall Quarter | 2014-92 
+2014  Summer Session 2 | 2014-76 
+2014  Summer Qtr (COM) | 2014-51 
+2014  10-wk Summer | 2014-39 
+2014  Summer Session 1 | 2014-25 
+2014  Spring Quarter | 2014-14 
+2014  Winter Quarter | 2014-03 
+2013  Fall Quarter | 2013-92 
+2013  Summer Session 2 | 2013-76 
+2013  Summer Qtr (COM) | 2013-51 
+2013  10-wk Summer | 2013-39 
+2013  Summer Session 1 | 2013-25 
+2013  Spring Quarter | 2013-14 
+
+
+<br>
+
+***
+### Display Options 1
+Search_name | ShowComments 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Display Options 2
+Search_name | ShowFinals 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### General Education (Breadth)
+Search_name | Breadth 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+Do not filter for General Education (GE) categories | ANY 
+GE Ia: Lower Division Writing | GE-1A 
+GE Ib: Upper Division Writing | GE-1B 
+GE II: Science and Technology | GE-2 
+GE III: Social and Behavioral Sciences | GE-3 
+GE IV: Arts and Humanities | GE-4 
+GE Va: Quantitative Literacy (starting Fall 2012) | GE-5A 
+GE Vb: Formal Reasoning (starting Fall 2012) | GE-5B 
+GE VI: Language other than English | GE-6 
+GE VII: Multicultural Studies | GE-7 
+GE VIII: International/Global Issues | GE-8 
+    --- General Education category (prior to Fall 2012) --- | ANY 
+GE V: Quantitative, Symbolic, and Computational Reasoning | GE-5 
+    --- General Education category (prior to Fall 2011) --- | ANY 
+GE IX: Laboratory or Performance | GE-9 
+    --- Breadth categories (prior to Fall 2008) --- | ANY 
+Breadth Ia: Lower Division Writing | 1A 
+Breadth Ib: Upper Division Writing | 1B 
+Breadth II: Natural Sciences | 2 
+Breadth III: Social and Behavioral Sciences | 3 
+Breadth IV: Humanistic Inquiry | 4 
+Breadth V: Mathematics and Symbolic Systems | 5 
+Breadth VI: Language Other Than English | 6 
+Breadth VIIa: Multicultural Studies | 7A 
+Breadth VIIb: International/global Issues | 7B 
+
+
+<br>
+
+***
+### Department Name
+Search_name | Dept 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+Include All Departments |  ALL 
+AC ENG . . . . . .Academic English and ESL | AC ENG 
+AFAM . . . . . . . African American Studies | AFAM 
+ANATOMY . . . .Anatomy and Neurobiology | ANATOMY 
+ANESTH . . . . . Anesthesiology | ANESTH 
+ANTHRO . . . . . Anthropology | ANTHRO 
+ARABIC . . . . . .Arabic | ARABIC 
+ARMN . . . . . . .Armenian (started 2018 Spg) | ARMN 
+ART . . . . . . . . .Art (started 2013 Fall) | ART 
+ART HIS . . . . . .Art History | ART HIS 
+ART STU . . . . . Art (until 2013 FSm) | ART STU 
+ARTS . . . . . . . Arts | ARTS 
+ARTSHUM . . . . Arts and Humanities | ARTSHUM 
+ASIANAM . . . . Asian American Studies | ASIANAM 
+BANA . . . . . . . Business Analytics (started 2017 SS2) | BANA 
+BATS . . . . . . . Biomedical and Translational Science | BATS 
+BIO SCI . . . . . .Biological Sciences | BIO SCI 
+BIOCHEM . . . . Biological Chemistry | BIOCHEM 
+BME . . . . . . . . Biomedical Engineering | BME 
+BSEMD . . . . . .Bio Sci & Educational Media Design (until 2017 Wtr) | BSEMD 
+CAMPREC . . . .Campus Recreation | CAMPREC 
+CBEMS . . . . . .Chemical Engr and Materials Science | CBEMS 
+CEM . . . . . . . . Community and Environmental Medicine | CEM 
+CHC/LAT . . . . . Chicano Latino | CHC/LAT 
+CHEM . . . . . . .Chemistry | CHEM 
+CHINESE . . . . .Chinese | CHINESE 
+CLASSIC . . . . .Classics | CLASSIC 
+CLT&THY . . . . .Culture & Theory | CLT&THY 
+COGS . . . . . . . Cognitive Sciences  (started 2016 Fall) | COGS 
+COM LIT . . . . . Comparative Literature | COM LIT 
+COMPSCI . . . . Computer Science | COMPSCI 
+CRITISM . . . . . Criticism | CRITISM 
+CRM/LAW . . . . Criminology, Law and Society | CRM/LAW 
+CSE . . . . . . . . Computer Science and Engineering | CSE 
+DANCE . . . . . . Dance | DANCE 
+DERM . . . . . . .Dermatology | DERM 
+DEV BIO . . . . . Developmental and Cell Biology | DEV BIO 
+DRAMA . . . . . .Drama | DRAMA 
+E ASIAN . . . . . East Asian Languages and Literatures | E ASIAN 
+EARTHSS . . . . Earth System Science | EARTHSS 
+ECO EVO . . . . Ecology and Evolutionary Biology | ECO EVO 
+ECON . . . . . . . Economics | ECON 
+ECPS . . . . . . . Embedded and Cyber-Physical Systems (started 2014 Spg) | ECPS 
+ED AFF . . . . . .Educational Affairs (Sch of Med) | ED AFF 
+EDUC . . . . . . . Education | EDUC 
+EECS . . . . . . . Electrical Engineering & Computer Science | EECS 
+EHS . . . . . . . . Environmental Health Sciences (started 2013 Fall) | EHS 
+ENGLISH . . . . .English | ENGLISH 
+ENGR . . . . . . . Engineering | ENGR 
+ENGRCEE . . . .Engineering, Civil and Environmental | ENGRCEE 
+ENGRMAE . . . .Engineering, Mechanical and Aerospace | ENGRMAE 
+ENGRMSE . . . .Chemical Engr and Materials Science (grads) | ENGRMSE 
+EPIDEM . . . . . .Epidemiology | EPIDEM 
+ER MED . . . . . Emergency Medicine | ER MED 
+EURO ST . . . . .European Studies | EURO ST 
+FAM MED . . . . Family Medicine | FAM MED 
+FIN . . . . . . . . . Finance (started 2017 Fall) | FIN 
+FLM&MDA . . . .Film and Media Studies | FLM&MDA 
+FRENCH . . . . . French | FRENCH 
+GEN&SEX . . . . Gender and Sexuality Studies (started 2014 Fall) | GEN&SEX 
+GERMAN . . . . .German | GERMAN 
+GLBL ME . . . . .Global Middle East Studies (started 2016 Fall) | GLBL ME 
+GLBLCLT . . . . .Global Cultures | GLBLCLT 
+GREEK . . . . . . Greek | GREEK 
+HEBREW . . . . .Hebrew | HEBREW 
+HINDI . . . . . . . .Hindi | HINDI 
+HISTORY . . . . .History | HISTORY 
+HUMAN . . . . . .Humanities | HUMAN 
+HUMARTS . . . . Humanities and Arts | HUMARTS 
+I&C SCI . . . . . . Information and Computer Science | I&C SCI 
+IN4MATX . . . . . Informatics | IN4MATX 
+INT MED . . . . . Internal Medicine | INT MED 
+INTL ST . . . . . . International Studies | INTL ST 
+ITALIAN . . . . . .Italian | ITALIAN 
+JAPANSE . . . . Japanese | JAPANSE 
+KOREAN . . . . .Korean | KOREAN 
+LATIN . . . . . . . Latin | LATIN 
+LAW . . . . . . . . Law | LAW 
+LINGUIS . . . . . .Linguistics | LINGUIS 
+LIT JRN . . . . . . Literary Journalism | LIT JRN 
+LPS . . . . . . . . .Logic and Philosophy of Science | LPS 
+M&MG . . . . . . .Microbiology and Molecular Genetics | M&MG 
+MATH . . . . . . . Mathematics | MATH 
+MED . . . . . . . . Medicine | MED 
+MED ED . . . . . Medical Education | MED ED 
+MED HUM . . . . Medical Humanities (started 2016 Fall) | MED HUM 
+MGMT . . . . . . .Management | MGMT 
+MGMT EP . . . . Executive MBA | MGMT EP 
+MGMT FE . . . . Fully Employed MBA | MGMT FE 
+MGMT HC . . . . Health Care MBA | MGMT HC 
+MGMTMBA . . . Management MBA | MGMTMBA 
+MGMTPHD . . . .Management PhD | MGMTPHD 
+MIC BIO . . . . . .Microbiology | MIC BIO 
+MOL BIO . . . . . Molecular Biology and Biochemistry | MOL BIO 
+MPAC . . . . . . .Accounting (started 2013 SS1) | MPAC 
+MUSIC . . . . . . .Music | MUSIC 
+NET SYS . . . . .Networked Systems | NET SYS 
+NEURBIO . . . . .Neurobiology and Behavior | NEURBIO 
+NEUROL . . . . . Neurology | NEUROL 
+NUR SCI . . . . . Nursing Science | NUR SCI 
+OB/GYN . . . . . Obstetrics and Gynecology | OB/GYN 
+OPHTHAL . . . . Ophthalmology | OPHTHAL 
+PATH . . . . . . . Pathology and Laboratory Medicine | PATH 
+PED GEN . . . . Pediatrics Genetics | PED GEN 
+PEDS . . . . . . . Pediatrics | PEDS 
+PERSIAN . . . . .Persian | PERSIAN 
+PHARM . . . . . .Medical Pharmacology | PHARM 
+PHILOS . . . . . .Philosophy | PHILOS 
+PHRMSCI . . . . Pharmaceutical Sciences | PHRMSCI 
+PHY SCI . . . . . Physical Science | PHY SCI 
+PHYSICS . . . . .Physics | PHYSICS 
+PHYSIO . . . . . .Physiology and Biophysics | PHYSIO 
+PLASTIC . . . . . Plastic Surgery (started 2014 Fall) | PLASTIC 
+PM&R . . . . . . .Physical Medicine and Rehabilitation | PM&R 
+POL SCI . . . . . Political Science | POL SCI 
+PORTUG . . . . . Portuguese | PORTUG 
+PP&D . . . . . . . Planning, Policy, and Design (until 2018 SS2; see UPPP) | PP&D 
+PSY BEH . . . . .Psychology and Social Behavior | PSY BEH 
+PSYCH . . . . . . Psychology | PSYCH 
+PUB POL . . . . .Public Policy | PUB POL 
+PUBHLTH . . . . Public Health | PUBHLTH 
+RADIO . . . . . . .Radiology | RADIO 
+REL STD . . . . . Religious Studies | REL STD 
+ROTC . . . . . . . Reserve Officers' Training Corps | ROTC 
+RUSSIAN . . . . .Russian | RUSSIAN 
+SOC SCI . . . . . Social Science | SOC SCI 
+SOCECOL . . . . Social Ecology | SOCECOL 
+SOCIOL . . . . . .Sociology | SOCIOL 
+SPANISH . . . . .Spanish | SPANISH 
+SPPS . . . . . . . Social Policy & Public Service (started 2016 Wtr) | SPPS 
+STATS . . . . . . .Statistics | STATS 
+SURGERY . . . .Surgery | SURGERY 
+TAGALOG . . . . Tagalog | TAGALOG 
+TOX . . . . . . . . .Toxicology | TOX 
+UCDC . . . . . . . UC Washington DC | UCDC 
+UNI AFF . . . . . .University Affairs | UNI AFF 
+UNI STU . . . . . .University Studies | UNI STU 
+UPPP . . . . . . . Urban Planning and Public Policy (started 2018 Fall) | UPPP 
+VIETMSE . . . . .Vietnamese | VIETMSE 
+VIS STD . . . . . .Visual Studies | VIS STD 
+WOMN ST . . . . Women's Studies (until 2014 SS2) | WOMN ST 
+WRITING . . . . . Writing | WRITING 
+
+
+<br>
+
+***
+### Course Number or Range
+Search_name | CourseNum 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Course Level
+Search_name | Division 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+Any course division | ANY 
+Lower Division only | 0xx 
+Upper Division only | 1xx 
+Graduate/Professional only | 2xx 
+
+
+<br>
+
+***
+### Course Code or Range
+Search_name | CourseCodes 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Instructor
+Search_name | InstrName 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Course Title Contains
+Search_name | CourseTitle 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Course Type
+Search_name | ClassType 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+All Course Types | ALL 
+Activity | ACT 
+Colloquium | COL 
+Discussion | DIS 
+Field Work | FLD 
+Laboratory | LAB 
+Lecture | LEC 
+Quiz | QIZ 
+Research | RES 
+Seminar | SEM 
+Studio | STU 
+Tut Assist Prog | TAP 
+Tutorial | TUT 
+
+
+<br>
+
+***
+### Units
+Search_name | Units 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Days
+Search_name | Days 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Starting Time After
+Search_name | StartTime 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+  |  
+1:00am | 1:00am 
+2:00am | 2:00am 
+3:00am | 3:00am 
+4:00am | 4:00am 
+5:00am | 5:00am 
+6:00am | 6:00am 
+7:00am | 7:00am 
+8:00am | 8:00am 
+9:00am | 9:00am 
+10:00am | 10:00am 
+11:00am | 11:00am 
+12:00pm | 12:00pm 
+1:00pm | 1:00pm 
+2:00pm | 2:00pm 
+3:00pm | 3:00pm 
+4:00pm | 4:00pm 
+5:00pm | 5:00pm 
+6:00pm | 6:00pm 
+7:00pm | 7:00pm 
+8:00pm | 8:00pm 
+9:00pm | 9:00pm 
+10:00pm | 10:00pm 
+11:00pm | 11:00pm 
+
+
+<br>
+
+***
+### Ending Time Before
+Search_name | EndTime 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+2:00am | 2:00am 
+3:00am | 3:00am 
+4:00am | 4:00am 
+5:00am | 5:00am 
+6:00am | 6:00am 
+7:00am | 7:00am 
+8:00am | 8:00am 
+9:00am | 9:00am 
+10:00am | 10:00am 
+11:00am | 11:00am 
+12:00pm | 12:00pm 
+1:00pm | 1:00pm 
+2:00pm | 2:00pm 
+3:00pm | 3:00pm 
+4:00pm | 4:00pm 
+5:00pm | 5:00pm 
+6:00pm | 6:00pm 
+7:00pm | 7:00pm 
+8:00pm | 8:00pm 
+9:00pm | 9:00pm 
+10:00pm | 10:00pm 
+11:00pm | 11:00pm 
+  |  
+
+
+<br>
+
+***
+### Maximum Capacity
+Search_name | MaxCap 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Course Full Options
+Search_name | FullCourses 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+  | ANY 
+Include full courses if space on waitlist | SkipFullWaitlist 
+Skip courses that are full | SkipFull 
+Show only full or waitlisted courses | FullOnly 
+Show only courses that are over-enrolled | OverEnrolled 
+
+
+<br>
+
+***
+### Web Font Size Percentages
+Search_name | FontSize 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Cancelled Courses
+Search_name | CancelledCourses 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+Exclude cancelled courses | Exclude 
+Include cancelled courses | Include 
+Only show cancelled courses | Only 
+
+
+<br>
+
+***
+### Meeting Place 1
+Search_name | Bldg 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
+***
+### Meeting Place 2
+Search_name | Room 
+ ---------- | ---------- 
+
+User Selection Option | Search_value 
+ ---------- | ---------- 
+ This Input Tag is not a selection tag | None 
+
+
+
+<br>
+
