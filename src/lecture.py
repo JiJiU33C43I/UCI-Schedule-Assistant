@@ -15,6 +15,8 @@ Friday = 'F';
 Saturday = 'SAT';
 Sunday = 'SUN';
 Week = {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
+Rstr_set = set();          ####### Incomplete Definition Check back later
+Status_set = set();        ####### Incomplete Definition Check back later
 # -------------------- GLOBAL CONSTANTS END HERE --------------------
 
 # -------------------- Source Code --------------------
@@ -27,10 +29,9 @@ class InvalidClassAttribute(Exception):
 class Lecture(Course):
     _type = 'Lec';
 
-    def __init__(self, coursename=None, instructor=None, coursecode=None, section='A', units = 4, day=None, place=None,\
+    def __init__(self, course_obj: Course, instructor=None, coursecode=None, section='A', units = 4, day=None, place=None,\
                  max = 0, enr = 0, wl = 0, req = 0, rstr = None, status = 'OPEN'):
-        Course.__init__(self, coursename);
-        self.set_coursename(coursename);
+        Course.__init__(self, *(course_obj.name()));
         self.set_instructor(instructor);
         self.set_coursecode(coursecode);
         self.set_section(section);
@@ -66,8 +67,8 @@ class Lecture(Course):
 
     def set_units(self, units:int):
         if type(unit) is not int:
-            raise InvalidClassAttribute(f"{type(self)}.set_units: units must be type integer; \
-            argument = {unit}");
+            raise InvalidClassAttribute(f"{type(self)}.set_units(self,{units}): \
+            units must be type integer;");
         self._units = units;
 
     def section(self):
@@ -82,15 +83,15 @@ class Lecture(Course):
     def set_time(self, start: (int,), end:(int,)):
         def _check_valid_time(t:(int,)):
             if type(t) is not tuple:
-                raise InvalidClassAttribute(f"{type(self)}.set_time: arguments must be type tuple; \
-                 argument = {t}");
+                raise InvalidClassAttribute(f"{type(self)}.set_time(self,{start}, {end}): \
+                arguments must be type tuple;");
             if len(t) != 2:
-                raise InvalidClassAttribute(f"{type(self)}.set_time: length of arguments must be exactly 2; \
-                argument = {t}");
+                raise InvalidClassAttribute(f"{type(self)}.set_time(self,{start}, {end}): \
+                length of arguments must be exactly 2;");
             hrs,min = t;
             if type(hrs) is not int or type(min) is not int:
-                raise InvalidClassAttribute(f"{type(self)}.set_time: elements in the tuple must all be type int; \
-                argument = {t}");
+                raise InvalidClassAttribute(f"{type(self)}.set_time(self,{start}, {end}): \
+                elements in the tuple must all be type int;");
 
         _check_valid_time(start);
         _check_valid_time(end);
@@ -143,8 +144,8 @@ class Lecture(Course):
                 return 7;
 
         if not _check_valid_day(day):
-            raise InvalidClassAttribute(f"{type(self)}.set_day: Invalid Day Argument; \
-            argument = {day}");
+            raise InvalidClassAttribute(f"{type(self)}.set_day(self, {day}): \
+            Invalid Day Argument;");
         self._day = ''.join(sorted(_separate_day(day), key=sort_week))
 
     def place(self):
@@ -158,8 +159,8 @@ class Lecture(Course):
 
     def set_max(self, max:int):
         if type(max) is not int:
-            raise InvalidClassAttribute(f"{type(self)}.set_max: max must be type integer; \
-            argument = {max}");
+            raise InvalidClassAttribute(f"{type(self)}.set_max(self, {max}): \
+            max must be type integer;");
         self._max= max;
 
     def enr(self):
@@ -167,8 +168,8 @@ class Lecture(Course):
 
     def set_enr(self, enr:int):
         if type(enr) is not int:
-            raise InvalidClassAttribute(f"{type(self)}.set_enr: enr must be type integer; \
-            argument = {enr}");
+            raise InvalidClassAttribute(f"{type(self)}.set_enr(self,{enr}): \
+            enr must be type integer;");
         self._enr= enr;
 
     def wl(self):
@@ -176,8 +177,8 @@ class Lecture(Course):
 
     def set_wl(self, wl:int):
         if type(wl) is not int:
-            raise InvalidClassAttribute(f"{type(self)}.set_wl: wl must be type integer; \
-            argument = {wl}");
+            raise InvalidClassAttribute(f"{type(self)}.set_wl(self, {wl}): \
+            wl must be type integer;");
         self._wl= wl;
 
     def req(self):
@@ -185,22 +186,26 @@ class Lecture(Course):
 
     def set_req(self, req:int):
         if type(req) is not int:
-            raise InvalidClassAttribute(f"{type(self)}.set_req: req must be type integer; \
-            argument = {req}");
+            raise InvalidClassAttribute(f"{type(self)}.set_req(self,{req}): \
+            req must be type integer;");
         self._req= req;
 
     def rstr(self):
         return self._rstr;
 
     def set_rstr(self, rstr:str):
-        #### Missing Exception Check Back Later ####
+        if rstr not in Rstr_set:
+            raise InvalidClassAttribute(f"{type(self)}.set_rstr(self, {rstr}): \
+            unable to set restriction because restriction given is invalid;");
         self._rstr= rstr;
 
     def status(self):
         return self._status;
 
     def set_status(self, status:str):
-        #### Missing Exception Check Back Later ####
+        if status not in Status_set:
+            raise InvalidClassAttribute(f"{type(self)}.set_status(self, {status}): \
+            unable to set status because status given is Invalid")
         self._status= status;
 
 

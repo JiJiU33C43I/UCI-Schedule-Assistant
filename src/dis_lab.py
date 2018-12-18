@@ -1,4 +1,4 @@
-##### lecture.py #####
+##### dis_lab.py #####
 # This is a python module that defines the dis_lab class
 
 # -------------------- IMPORTS START HERE --------------------
@@ -6,6 +6,7 @@ from lecture import Lecture, InvalidClassAttribute
 # -------------------- IMPORTS END HERE --------------------
 
 # -------------------- GLOBAL CONSTANTS START HERE --------------------
+Type_set = set() ####### Incomplete Definition Check Back Later
 # -------------------- GLOBAL CONSTANTS END HERE --------------------
 
 # -------------------- Source Code --------------------
@@ -21,6 +22,6 @@ class Dis_Lab(Lecture):
 
     def set_type(self, tpe:str):
         if tpe not in {'Lab', 'Dis'}:
-            raise InvalidClassAttribute(f"{type(self)}.set_type: Type of a course class must either be 'Lec', 'Dis', 'Lab'; \
-            argument = {tpe}");
+            raise InvalidClassAttribute(f"{type(self)}.set_type(self, {tpe}): \
+            Type of a course class must either be 'Lec', 'Dis', 'Lab';");
         self._type = tpe;
