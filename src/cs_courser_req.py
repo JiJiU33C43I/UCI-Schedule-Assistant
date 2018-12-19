@@ -1,37 +1,45 @@
+# -------------------- IMPORTS START HERE --------------------
 from bs4 import BeautifulSoup
-import requests
-
-#only for cs class
-res = requests.get('http://catalogue.uci.edu/donaldbrenschoolofinformationandcomputersciences/departmentofcomputerscience/#majorstext')
-soup = BeautifulSoup(res.text, 'lxml')
+import urllib.request
+# -------------------- IMPORTS END HERE --------------------
 
 
-def get_course_title(soup):
-    course_info = soup.find_all('tr', {'class': 'even'})
-    result = []
-    for course in course_info:
-        if course.a != None:
-            result.append(course.a.text)
-
-    return result
-
-
-
-#print list of cs classes
-#for i in get_course_title(soup):
-#    print(i)
-
-
-'''
-can't figure out how to get course description
-实在想不出了， 查也查不到， YouTube也没有。。。。期待着你们
-'''
-bubble = soup.find_all('div', {'class':'courseblock'})
-for i in bubble:
-   # print(i.prettify())
-    print(i.p)
+# -------------------- GLOBAL CONSTANTS START HERE --------------------
 
 
 
 
+# user_input_url is a string object and is defined as below:
+# user_input_url = "search_name=search_value" + "&" + "search_name=search_value" + "&" + and so on
 
+
+## For example, say,
+## I would like to get the page source of schedule of CS courses in 2019 Winter Quarter:
+
+user_input_url = "YearTerm=2019-03&Dept=COMPSCI";
+HTTP_response = urllib.request.urlopen("https://www.reg.uci.edu/perl/WebSoc/" + "?" + user_input_url);
+page_source = HTTP_response.read();
+
+# user_input_url presented here will be referred to as the name "user input data" for convenience of communication
+
+easily_readable_page_source = (BeautifulSoup(page_source, "html.parser")).prettify();
+# -------------------- GLOBAL CONSTANTS END HERE --------------------
+
+
+
+# -------------------- Source Code --------------------
+
+source = BeautifulSoup(page_source, "html.parser")
+course_title = source.find_all('td', {'class':'CourseTitle'})
+
+#print all class title
+#for i in course_title:
+#    print(i.text)
+
+remaining_info = source.find_all('td')
+#print(temp)
+
+
+#print all other information
+for i in remaining_info:
+    print(i.text, type(i.text), len(i.text))

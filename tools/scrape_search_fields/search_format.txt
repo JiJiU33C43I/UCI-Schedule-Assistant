@@ -95,11 +95,11 @@ GE Vb: Formal Reasoning (starting Fall 2012) | GE-5B
 GE VI: Language other than English | GE-6 
 GE VII: Multicultural Studies | GE-7 
 GE VIII: International/Global Issues | GE-8 
-    --- General Education category (prior to Fall 2012) --- | ANY 
+Â Â Â Â --- General Education category (prior to Fall 2012) --- | ANY 
 GE V: Quantitative, Symbolic, and Computational Reasoning | GE-5 
-    --- General Education category (prior to Fall 2011) --- | ANY 
+Â Â Â Â --- General Education category (prior to Fall 2011) --- | ANY 
 GE IX: Laboratory or Performance | GE-9 
-    --- Breadth categories (prior to Fall 2008) --- | ANY 
+Â Â Â Â --- Breadth categories (prior to Fall 2008) --- | ANY 
 Breadth Ia: Lower Division Writing | 1A 
 Breadth Ib: Upper Division Writing | 1B 
 Breadth II: Natural Sciences | 2 
@@ -390,7 +390,7 @@ Search_name | StartTime
 
 User Selection Option | Search_value 
  ---------- | ---------- 
-  |  
+Â  |  
 1:00am | 1:00am 
 2:00am | 2:00am 
 3:00am | 3:00am 
@@ -447,7 +447,7 @@ User Selection Option | Search_value
 9:00pm | 9:00pm 
 10:00pm | 10:00pm 
 11:00pm | 11:00pm 
-  |  
+Â  |  
 
 
 <br>
@@ -472,7 +472,7 @@ Search_name | FullCourses
 
 User Selection Option | Search_value 
  ---------- | ---------- 
-  | ANY 
+Â  | ANY 
 Include full courses if space on waitlist | SkipFullWaitlist 
 Skip courses that are full | SkipFull 
 Show only full or waitlisted courses | FullOnly 
