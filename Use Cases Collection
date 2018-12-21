@@ -1,11 +1,16 @@
-1. Users can view schedule of classes
-2. Users can get notification if restriction of the courses changes
-3. Users can get notification if enrollment number changes
-4. Collect enrollment data of each course
-5. Present a tree that shows prerequisite hierarchy and future related courses
-6. Display rate my professor of each course
-7. Display future quarter schedule
-8. Display course objective of each class
-9. Collect and display pass rate/ fail rate of each course
-10. Automatic Course Selection (ultimate objective)
-11. Display equivalent community class for each course
+Users can view schedule of classes
+Users can get notification if restriction of the courses changes
+Users can get notification if enrollment number changes
+Users can get notification if the class is extended(either num of class of a course or the max students num of a specified class)
+Users can search class by course number
+Users can search lecture by dis/lab number
+The user interface displaies the occupancy via bar
+The user interface shows users a nice look of their calendars
+Collect enrollment data of each course
+Present a tree that shows prerequisite hierarchy and future related courses
+Display rate my professor of each course (*need to get permission from ratemyprofessor*)
+Display future quarter schedule
+Display course objective of each class
+Collect and display pass rate/ fail rate of each course
+Automatic Course Selection (ultimate objective)
+Display equivalent community class for each course
