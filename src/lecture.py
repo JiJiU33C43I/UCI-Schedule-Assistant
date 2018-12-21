@@ -1,12 +1,18 @@
 ##### lecture.py #####
 # This is a python module that defines the lecture class
 
-# -------------------- IMPORTS START HERE --------------------
+#=======================================
+#==            IMPORTS LIB            ==
+#=======================================
 from course import Course
 import datetime
-# -------------------- IMPORTS END HERE --------------------
 
-# -------------------- GLOBAL CONSTANTS START HERE --------------------
+
+
+
+#=======================================
+#==          GLOBAL CONSTANTS         ==
+#=======================================
 Monday = 'M';
 Tuesday = 'TU';
 Wednesday = 'W';
@@ -17,9 +23,13 @@ Sunday = 'SUN';
 Week = {Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday};
 Rstr_set = set();          ####### Incomplete Definition Check back later
 Status_set = set();        ####### Incomplete Definition Check back later
-# -------------------- GLOBAL CONSTANTS END HERE --------------------
 
-# -------------------- Source Code --------------------
+
+
+
+#=======================================
+#==            Source Code            ==
+#=======================================
 
 
 class InvalidClassAttribute(Exception):
@@ -29,21 +39,21 @@ class InvalidClassAttribute(Exception):
 class Lecture(Course):
     _type = 'Lec';
 
-    def __init__(self, course_obj: Course, instructor=None, coursecode=None, section='A', units = 4, day=None, place=None,\
-                 max = 0, enr = 0, wl = 0, req = 0, rstr = None, status = 'OPEN'):
+    def __init__(self, course_obj: Course, Code, Sec, Units, Instructor, time, day, Place, Max, Enr, WL, Req, Rstr, Status):
         Course.__init__(self, *(course_obj.name()));
-        self.set_instructor(instructor);
-        self.set_coursecode(coursecode);
-        self.set_section(section);
-        self.set_units(units);
+        self.set_coursecode(Code);
+        self.set_section(Sec);
+        self.set_units(Units);
+        self.set_instructor(Instructor);
+        self.set_time(time);
         self.set_day(day);
-        self.set_place(place);
-        self.set_max(max);
-        self.set_enr(enr);
-        self.set_wl(wl);
-        self.set_req(req);
-        self.set_rstr(rstr);
-        self.set_status(status);
+        self.set_place(Place);
+        self.set_max(Max);
+        self.set_enr(Enr);
+        self.set_wl(WL);
+        self.set_req(Req);
+        self.set_rstr(Rstr);
+        self.set_status(Status);
 
     def __str__(self):
         start,end = self.time();

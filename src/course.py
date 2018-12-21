@@ -1,14 +1,22 @@
 ##### course.py #####
 # This is a python module that defines the Course class
 
-# -------------------- IMPORTS START HERE --------------------
-# -------------------- IMPORTS START HERE --------------------
-
-# -------------------- GLOBAL CONSTANTS START HERE --------------------
-# -------------------- GLOBAL CONSTANTS END HERE --------------------
+#=======================================
+#==            IMPORTS LIB            ==
+#=======================================
 
 
-# -------------------- Source Code --------------------
+
+#=======================================
+#==          GLOBAL CONSTANTS         ==
+#=======================================
+
+
+
+
+#=======================================
+#==            Source Code            ==
+#=======================================
 class InvalidCourseException(Exception):
     pass;
 
@@ -17,7 +25,7 @@ class Course:
     def __init__(self, coursename, formalname = None):
         self.set_coursename(coursename);
         self.set_formalname(formalname);
-        self._derived_classes = set()
+        self._derived_classes = list();
 
     def __str__(self):
         name = self.name()
@@ -42,4 +50,5 @@ class Course:
 
     def set_formalname(self, formalname:str):
         self._formalname = formalname;
+
 

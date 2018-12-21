@@ -1,15 +1,24 @@
 ##### dis_lab.py #####
 # This is a python module that defines the dis_lab class
 
-# -------------------- IMPORTS START HERE --------------------
+#=======================================
+#==            IMPORTS LIB            ==
+#=======================================
 from lecture import Lecture, InvalidClassAttribute
-# -------------------- IMPORTS END HERE --------------------
 
-# -------------------- GLOBAL CONSTANTS START HERE --------------------
+
+
+#=======================================
+#==          GLOBAL CONSTANTS         ==
+#=======================================
+
 Type_set = set() ####### Incomplete Definition Check Back Later
-# -------------------- GLOBAL CONSTANTS END HERE --------------------
 
-# -------------------- Source Code --------------------
+
+
+#=======================================
+#==            Source Code            ==
+#=======================================
 
 class Dis_Lab(Lecture):
     def __init__(self, coursename=None, tpe = 'Dis', instructor=None, coursecode=None, section= None, units=4, day=None, place=None, \
