@@ -148,37 +148,3 @@ if __name__ == "__main__":
     program.mainloop()
 
 
-
-
-
-
-
-
-#------------------
-#-- START CANVAS --
-#------------------
-# canvas = Tk()
-
-#--------------------
-#-- CANVAS CONTENT --
-#--------------------
-# top_frame = Frame(canvas)
-# top_frame.pack()
-# bottom_frame = Frame(canvas)
-# bottom_frame.pack(side=BOTTOM)
-
-# button1 = Button(top_frame, text="SUBMIT", fg="red")
-# button1.pack(side = LEFT)
-# button2 = Button(top_frame, text="SUBMIT1", fg="blue")
-# button2.pack(side = LEFT)
-# button3 = Button(top_frame, text="SUBMIT2", fg="grey")
-# button3.pack(side = BOTTOM)
-# button4 = Button(top_frame, text="SUBMIT3", fg="green")
-# button4.pack(side = BOTTOM)
-
-
-
-#----------------
-#-- RUN/END CANVAS --
-#----------------
-# canvas.mainloop()
