@@ -162,7 +162,7 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__' and debugging:
 
-    user_input_dict = {"YearTerm":"2019-03", "Dept":"COMPSCI","CourseTitle":"Retrieval"}
+    user_input_dict = {"YearTerm":"2019-03", "Dept":"COMPSCI"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
 
