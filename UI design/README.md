@@ -1,5 +1,7 @@
 # UCI-Schedule-Assistant: UI Design & Prototype
-Welcome to the sub-page "UI Design & Prototype" of the UCI-Schedule-Assistant project. This is the page where you might upload your UI/UX prototype designs - a page full of brilliant ideas and inspirations that would eventually give rise to a successful UI for this project.
+Welcome to the sub-page "UI Design & Prototype" of the UCI-Schedule-Assistant project. This is the page where you might upload your UI/UX prototype designs - a page full of brilliant ideas and inspirations that would eventually give rise to a successful UI for this project. 
+
+**Note: Please do NOT upload the actual UI python CODE here. This subpage is just for UI design and prototyping.**
 
 ## General Information
 * #### Software used to produce UI Designs and prototypes: 
