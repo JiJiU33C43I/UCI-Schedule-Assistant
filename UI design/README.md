@@ -13,4 +13,5 @@ Welcome to the sub-page "UI Design & Prototype" of the UCI-Schedule-Assistant pr
   * [Click to check out the "Adobe XD-Keyboard Shortcuts.pdf" file](../UI%20design/Adobe%20XD-Keyboard%20Shortcuts.pdf)
   
 ## Latest Version of UI Prototype:
-Please Upload the link for the currently latest UI Design & Prototype here:  **_Missing_**
+Please Upload the link for the currently latest UI Design & Prototype here: 
+https://xd.adobe.com/view/0fd50d34-fe1a-4908-69e5-cfd4d9ed55ef-79e4/
