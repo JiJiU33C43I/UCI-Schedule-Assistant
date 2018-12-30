@@ -14,4 +14,4 @@ Welcome to the sub-page "UI Design & Prototype" of the UCI-Schedule-Assistant pr
   
 ## Latest Version of UI Prototype:
 Please Upload the link for the currently latest UI Design & Prototype here: 
-https://xd.adobe.com/view/0fd50d34-fe1a-4908-69e5-cfd4d9ed55ef-79e4/
+[UCI-Schedule-Assistant Prototype V2.01](https://xd.adobe.com/view/dff77197-a420-4bbf-78b1-088f53424a44-a9c6/)
