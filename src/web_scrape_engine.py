@@ -16,7 +16,7 @@ import urllib.parse
 #==          GLOBAL CONSTANTS         ==
 #=======================================
 base_schedule_of_classes_url = "https://www.reg.uci.edu/perl/WebSoc";
-BeautifulSoup_Parser = "html.parser"
+BeautifulSoup_Parser = "html.parser"    # LXML Parser requires the third party library <lxml> to be installed
 course_info_header = ["Code", "Type", "Sec", "Units", "Instructor", "Time", "Place", "Final","Max", "Enr", "WL", "Req", "Rstr", "Textbooks", "Web", "Status"];
 debugging = True;
 
@@ -47,10 +47,14 @@ class web_scrape_engine:
         self._user_input_dict["ShowFinals"] = "on";
         self.parse_url();
         self.soup = self.request_page();
-        self.extract_data();
+        self._replace_special_character();
 
     def __str__(self):
         return self.soup.prettify();
+
+    def _replace_special_character(self):
+        for linebreak in self.soup.find_all('br'):
+            linebreak.replaceWith('\n');
 
     def parse_url(self):
         try:
@@ -108,7 +112,7 @@ class web_scrape_engine:
                     return False;
 
             def _generate_new_class(td_tags_list:list):
-                course_info = [i.string for i in td_tags_list];
+                course_info = [i.text.replace('\xa0','\n') for i in td_tags_list];
                 return zip(self.ch, course_info);
 
             all_classes_searched = False;
@@ -149,10 +153,7 @@ class web_scrape_engine:
             class_lst,course_title_row = _find_new_classes(course_title_row);
             course_data[courses_found]["_derived_classes"].extend(class_lst);
             courses_found += 1;
-        self.course_data = course_data;
-
-    def get_data(self):
-        return self.course_data;
+        return course_data;
 
 
 
@@ -162,12 +163,12 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__' and debugging:
 
-    user_input_dict = {"YearTerm":"2019-03", "Dept":"COMPSCI"}
+    user_input_dict = {"YearTerm":"2019-14", "Dept":"EECS"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
 
     engine = web_scrape_engine(user_input_dict);
-    course_data = engine.get_data();
+    course_data = engine.extract_data();
     print("\n\n")
     for courses in course_data:
         for v in courses.values():
@@ -177,3 +178,6 @@ if __name__ == '__main__' and debugging:
                     print(f"{i['Code']} {i['Type']} {i['Sec']}")
         print('\n\n\n')
     print(f'\n\n\n--------------Number of Found Courses: {len(course_data)}--------------\n');
+
+
+    #print(engine.soup);
