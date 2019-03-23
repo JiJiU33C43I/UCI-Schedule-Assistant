@@ -7,7 +7,10 @@
 import tkinter as tk;
 from PIL import Image;
 
+import GuiWidgets as W;
+
 import HomePage;
+
 
 #=======================================
 #==          GLOBAL CONSTANTS         ==
@@ -42,11 +45,12 @@ class main_gui():
         self.Root.title("UCI Schedule Assistant");
         self.Root.geometry(f"{w}x{h}+{x}+{y}");
         self.Root.resizable(width = False, height = False);
+        self.Root.grid_propagate(False);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 
         # --------- DEFINING THE MAIN FRAME --------- #
-        self.MainFrame = tk.Frame(self.Root, width = w, height = h);
+        self.MainFrame = W.Frame(self.Root, w, h);
         self.MainFrame.pack();
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 

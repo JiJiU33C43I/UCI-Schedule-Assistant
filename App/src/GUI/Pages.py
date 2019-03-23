@@ -5,7 +5,7 @@
 #==            IMPORTS LIB            ==
 #=======================================
 import tkinter as tk
-from PIL import Image
+import GuiWidgets as W;
 
 #=======================================
 #==          GLOBAL CONSTANTS         ==
@@ -26,7 +26,8 @@ class Pages:
 
     def __init__(self, MainFrame):
         self.MainFrame = MainFrame;
-        self.PageFrame = tk.Frame(self.MainFrame);
+        w,h = self.page_size();
+        self.PageFrame = W.Frame(self.MainFrame, w, h);
         self.PageFrame.pack();
 
     def page_size(self) -> tuple:
