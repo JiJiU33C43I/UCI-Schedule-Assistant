@@ -79,7 +79,7 @@ class HomePage(P.Pages):
         self.home_canvas = W.Canvas(self.Fheader, 300, 70, bg = '#000000');
         self.home_canvas.pack(anchor = tk.NW);
 
-        self.home_canvas_img1 = self.home_canvas.create_image(3,5, image = self.home_image, anchor = tk.NW);
+        self.home_canvas_img1 = self.home_canvas.create_image(16,3, image = self.home_image, anchor = tk.NW);
         #self.home_canvas.tag_bind(self.home_canvas_img1, '<Button-1>', func = lambda self: print('I am home button!'));
 
     def Fwelcome_banner_widgets(self):
@@ -127,11 +127,11 @@ class HomePage(P.Pages):
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
     def Ffooter_widgets(self):
-        self.moreinfo_button_image = W.OpenImage("more_info_button.png");
+        self.moreinfo_button_image = W.OpenImage("LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
-                                         bg = '#ffffff', pady = 5,
+                                         bg = '#ffffff', pady = 9,
                                          bd = 0, highlightthickness = 0);
-        self.moreinfo_button.pack(anchor = tk.E, padx = (0,10));
+        self.moreinfo_button.pack(anchor = tk.E, padx = (0,6));
 
     def generate_widgets(self):
         self.FHeader_widgets();
