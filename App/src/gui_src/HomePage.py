@@ -8,6 +8,7 @@ import Pages as P
 import GuiWidgets as W
 
 from tkinter import font
+from tkinter import messagebox as popmsg
 import tkinter as tk
 from PIL import Image, ImageTk
 
@@ -74,13 +75,18 @@ class HomePage(P.Pages):
         self.Ffooter.grid(column = 0, row = 12, sticky = self.ALL_STICK);
 
     def FHeader_widgets(self):
+
         self.home_image = W.OpenImage("UCI_black_logo.png");
 
         self.home_canvas = W.Canvas(self.Fheader, 300, 70, bg = '#000000');
         self.home_canvas.pack(anchor = tk.NW);
 
         self.home_canvas_img1 = self.home_canvas.create_image(16,3, image = self.home_image, anchor = tk.NW);
-        #self.home_canvas.tag_bind(self.home_canvas_img1, '<Button-1>', func = lambda self: print('I am home button!'));
+
+        def temp_func(event):
+            popmsg.askyesno("Flow_Incomplete_Exception: failed to invoke JUMP to another page", "Jump to the Home Page?");
+
+        self.home_canvas.tag_bind(self.home_canvas_img1, '<Button-1>', func = temp_func);
 
     def Fwelcome_banner_widgets(self):
         self.welcome_banner_label = tk.Label(self.Fwelcome_banner, text = "Welcome to UCI Schedule Assistant",
@@ -126,12 +132,21 @@ class HomePage(P.Pages):
                                        bd = 0, highlightthickness = 0);
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
+        def temp_func(event, self = self):
+            popmsg.showinfo("Account/Password capture Succeed", f"Your Gmail Account = {self.account_name.get()}\n Your Password = {self.account_password.get()}");
+        self.submit_button.bind('<Button-1>', func = temp_func);
+
     def Ffooter_widgets(self):
         self.moreinfo_button_image = W.OpenImage("LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
                                          bg = '#ffffff', pady = 9,
                                          bd = 0, highlightthickness = 0);
         self.moreinfo_button.pack(anchor = tk.E, padx = (0,6));
+
+        def temp_func(event):
+            popmsg.askyesno("Flow_Incomplete_Exception: failed to invoke JUMP to another page",
+                            "Jump to the AboutUs Page?");
+        self.moreinfo_button.bind('<Button-1>', func = temp_func);
 
     def generate_widgets(self):
         self.FHeader_widgets();
