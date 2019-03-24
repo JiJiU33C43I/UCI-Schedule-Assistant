@@ -27,7 +27,7 @@ function global:deactivate ([switch]$NonDestructive) {
 
 deactivate -nondestructive
 
-$env:VIRTUAL_ENV="S:\Git\JiJiU33C43I\UCI-Schedule-Assistant\App\venv"
+$env:VIRTUAL_ENV="C:\Users\lyyan\Desktop\Projects\UCI-Schedule-Assistant\App\venv"
 
 if (! $env:VIRTUAL_ENV_DISABLE_PROMPT) {
     # Set the prompt to include the env name

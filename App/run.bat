@@ -1,5 +1,7 @@
-set current_path=%cd% 
-echo The Current Directory is %cd%
+set "root_path=%cd%"
+echo The Current Directory is %root_path%
 call %cd%\venv\Scripts\activate.bat
-cd %cd%\src\gui_src\
-main_gui.py
+cd src\gui_src\
+echo The Current Directory is %root_path%
+"%root_path%\venv\Scripts\python.exe" "main_gui.py"
+PAUSE
