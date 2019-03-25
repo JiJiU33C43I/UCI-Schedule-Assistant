@@ -4,20 +4,23 @@
 #=======================================
 #==            IMPORTS LIB            ==
 #=======================================
+import pathlib
+
 import Pages as P
 import GuiWidgets as W
 
 from tkinter import font
 from tkinter import messagebox as popmsg
 import tkinter as tk
-from tkinter import ttk;
-from PIL import Image, ImageTk
+from tkinter import ttk
 
 
 #=======================================
 #==          GLOBAL CONSTANTS         ==
 #=======================================
 DEBUGGING = True;
+CURR_WORKING_DIR = pathlib.Path.cwd();
+
 
 #=======================================
 #==            Source Code            ==
@@ -48,7 +51,7 @@ class FunctionPage(P.Pages):
 
     def Fheader_widgets(self):
 
-        self.home_image = W.OpenImage("UCI_black_logo.png");
+        self.home_image = W.OpenImage(CURR_WORKING_DIR / "pics" / "UCI_black_logo.png");
 
         self.home_canvas = W.Canvas(self.Fheader, 300, 70, bg = '#000000');
         self.home_canvas.pack(anchor = tk.NW);
@@ -132,7 +135,7 @@ class FunctionPage(P.Pages):
         self.code_entry.pack(anchor=tk.NW, padx=50, ipady = 3);
 
     def Setup_Button_Frame(self):
-        self.search_submit_img = W.OpenImage("search_submit_button.png");
+        self.search_submit_img = W.OpenImage(CURR_WORKING_DIR/"pics"/"search_submit_button.png");
         self.search_submit_button = tk.Button(self.searchcourse_button_frame, image=self.search_submit_img,
                                               bd=0, highlightthickness=0);
         self.search_submit_button.pack(pady = 15);
@@ -173,7 +176,7 @@ class FunctionPage(P.Pages):
     def Fdisplaypanel_widgets(self):
         self.display_canvas = W.Canvas(self.Fdisplaypanel, 880, 650);
         self.display_canvas.pack();
-        self.idle_image = W.OpenImage("MemePic.png");
+        self.idle_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"MemePic.png");
         self.idle_image_canvas = self.display_canvas.create_image(0,0,anchor = tk.NW, image = self.idle_image);
 
 

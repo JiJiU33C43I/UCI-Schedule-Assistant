@@ -4,6 +4,8 @@
 #=======================================
 #==            IMPORTS LIB            ==
 #=======================================
+import pathlib
+
 import tkinter as tk;
 from PIL import Image;
 
@@ -22,6 +24,7 @@ DEBUGGING = True;
 DEFAULT_WINDOW_SIZE = (1280, 720);
 START_COORDINATE = (25,25);
 
+CURR_WORKING_DIR = pathlib.Path.cwd();
 
 #=======================================
 #==            Source Code            ==
@@ -42,7 +45,7 @@ class main_gui():
 
         # ------ DEFINING THE ROOT APP WINDOW ------ #
         self.Root = tk.Tk();
-        self.Root.iconbitmap("app_icon.ico");
+        self.Root.iconbitmap(CURR_WORKING_DIR/"pics"/"app_icon.ico");
         self.Root.title("UCI Schedule Assistant");
         self.Root.geometry(f"{w}x{h}+{x}+{y}");
         self.Root.resizable(width = False, height = False);

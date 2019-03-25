@@ -4,6 +4,8 @@
 #=======================================
 #==            IMPORTS LIB            ==
 #=======================================
+import pathlib
+
 import Pages as P
 import GuiWidgets as W
 
@@ -16,6 +18,7 @@ from PIL import Image, ImageTk
 #==          GLOBAL CONSTANTS         ==
 #=======================================
 DEBUGGING = True;
+CURR_WORKING_DIR = pathlib.Path.cwd();
 
 #=======================================
 #==            Source Code            ==
@@ -70,7 +73,7 @@ class HomePage(P.Pages):
 
     def Fheader_widgets(self):
 
-        self.home_image = W.OpenImage("UCI_black_logo.png");
+        self.home_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"UCI_black_logo.png");
 
         self.home_canvas = W.Canvas(self.Fheader, 300, 70, bg = '#000000');
         self.home_canvas.pack(anchor = tk.NW);
@@ -89,7 +92,7 @@ class HomePage(P.Pages):
         self.welcome_banner_label.pack();
 
     def Faccount_image_widgets(self):
-        self.account_image = W.OpenImage("account_image.png");
+        self.account_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"account_image.png");
         self.account_image_label = tk.Label(self.Faccount_image, image = self.account_image,
                                             bd = 0,  relief = tk.FLAT,
                                             bg = '#ffffff', activebackground = '#ffffff');
@@ -121,7 +124,7 @@ class HomePage(P.Pages):
         self.account_password_entry.grid(column = 0, row = 1, sticky = tk.W, padx = (500,0), pady = (5,0));
 
     def Fsubmit_widgets(self):
-        self.submit_button_image = W.OpenImage("home_submit_button.png");
+        self.submit_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"home_submit_button.png");
         self.submit_button = tk.Button(self.Fsubmit, image = self.submit_button_image,
                                        bd = 0, highlightthickness = 0);
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
@@ -131,7 +134,7 @@ class HomePage(P.Pages):
         self.submit_button.bind('<Button-1>', func = jump_to_FunctionPage);
 
     def Ffooter_widgets(self):
-        self.moreinfo_button_image = W.OpenImage("LearnMore_icon.png");
+        self.moreinfo_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
                                          bg = '#ffffff', pady = 9,
                                          bd = 0, highlightthickness = 0);
