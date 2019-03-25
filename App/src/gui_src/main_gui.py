@@ -10,6 +10,7 @@ from PIL import Image;
 import GuiWidgets as W;
 
 import HomePage;
+import FunctionPage;
 
 
 #=======================================
@@ -54,9 +55,13 @@ class main_gui():
         self.MainFrame.pack();
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
+        # ------ Instantiate TK VAR ------ #
+        self.account_name = tk.StringVar();
+        self.account_password = tk.StringVar();
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
-        # --------- DEFINING THE CURRENT PAGE --------- #
-        self.CurrentPage = HomePage.HomePage(self.MainFrame);
+        # --------- Initialize the First Page --------- #
+        self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 
