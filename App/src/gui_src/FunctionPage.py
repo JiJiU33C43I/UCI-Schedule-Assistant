@@ -1,3 +1,27 @@
+'''
+MIT License
+
+Copyright (c) 2019 JiJiU33C43I Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
+
 ##### FunctionPage.py #####
 # This is a python module that creates the FunctionPage for UCI-Schedule-Assistant
 
@@ -5,9 +29,12 @@
 #==            IMPORTS LIB            ==
 #=======================================
 import pathlib
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(__file__)))
 
 import Pages as P
 import GuiWidgets as W
+
 
 from tkinter import font
 from tkinter import messagebox as popmsg
@@ -31,6 +58,8 @@ class FunctionPage(P.Pages):
 
     def __init__(self, MainFrame, account_name, account_password):
         super().__init__(MainFrame, account_name, account_password);  # instantiate PageFrame
+        self.page_id = "FP";
+        self.next_page_id = "FP";
         self.create_frame();
         self.layout_frame();
         self.generate_widgets();
@@ -73,8 +102,8 @@ class FunctionPage(P.Pages):
 
 
         self.trackedcourse_scrollbar = tk.Scrollbar(self.Fcurrentcourse, width = 15, orient = tk.VERTICAL);
-        self.trackedcourse_panel = tk.Listbox(self.Fcurrentcourse, selectmode = tk.MULTIPLE,
-                                              width = 28, bd = 2, bg = '#ffffff',
+        self.trackedcourse_panel = tk.Listbox(self.Fcurrentcourse, selectmode = tk.MULTIPLE, relief = tk.GROOVE,
+                                              width = 28, bd = 2, bg = '#ffffff', highlightthickness = 0,
                                               font = font.Font(family = "Segoe UI", size = 14),
                                               yscrollcommand = self.trackedcourse_scrollbar.set);
         self.trackedcourse_scrollbar.grid(row = 1, column = 1, sticky = self.ALL_STICK);
