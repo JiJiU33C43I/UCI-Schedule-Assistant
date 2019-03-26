@@ -4,12 +4,15 @@
 #=======================================
 #==            IMPORTS LIB            ==
 #=======================================
+import pathlib
+
 import tkinter as tk;
 from PIL import Image;
 
 import GuiWidgets as W;
 
 import HomePage;
+import FunctionPage;
 
 
 #=======================================
@@ -21,6 +24,7 @@ DEBUGGING = True;
 DEFAULT_WINDOW_SIZE = (1280, 720);
 START_COORDINATE = (25,25);
 
+CURR_WORKING_DIR = pathlib.Path.cwd();
 
 #=======================================
 #==            Source Code            ==
@@ -41,7 +45,7 @@ class main_gui():
 
         # ------ DEFINING THE ROOT APP WINDOW ------ #
         self.Root = tk.Tk();
-        self.Root.iconbitmap("app_icon.ico");
+        self.Root.iconbitmap(CURR_WORKING_DIR/"pics"/"app_icon.ico");
         self.Root.title("UCI Schedule Assistant");
         self.Root.geometry(f"{w}x{h}+{x}+{y}");
         self.Root.resizable(width = False, height = False);
@@ -54,9 +58,13 @@ class main_gui():
         self.MainFrame.pack();
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
+        # ------ Instantiate TK VAR ------ #
+        self.account_name = tk.StringVar();
+        self.account_password = tk.StringVar();
+        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
-        # --------- DEFINING THE CURRENT PAGE --------- #
-        self.CurrentPage = HomePage.HomePage(self.MainFrame);
+        # --------- Initialize the First Page --------- #
+        self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 

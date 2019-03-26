@@ -100,10 +100,10 @@ class web_scrape_engine:
                     This prediction/guess might go wrong and may need to be adjusted in the future
                      because it is highly dependent on pattern/order of the html page source'''
                 try:
-                    check_list = [(len(td_tags_lst) == 16), \
-                                  (len(td_tags_lst[0].string) == 5), (type(int(td_tags_lst[0].string)) is int), \
+
+                    check_list = [(len(td_tags_lst[0].string) == 5), (type(int(td_tags_lst[0].string)) is int), \
                                   ((td_tags_lst[1].string.upper()) in ['ACT','COL','DIS','FLD','LAB','LEC','QIZ','RES','SEM','STU','TAP','TUT'])];
-                    #print("Following: ",check_list)
+                    print("\nvalid? ->", check_list);
                     if all(check_list):
                         return True;
                     else:
@@ -112,8 +112,12 @@ class web_scrape_engine:
                     return False;
 
             def _generate_new_class(td_tags_list:list):
-                course_info = [i.text.replace('\xa0','\n') for i in td_tags_list];
-                return zip(self.ch, course_info);
+                course_info = [];
+                course_info = [i.text.replace('\xa0', '\n') for i in td_tags_list];
+                if ( len(td_tags_lst) == 16 ):
+                    return zip(self.ch, course_info);
+                elif ( len(td_tags_lst) == 15 ):
+                   return zip([h for h in self.ch if h != "WL"], course_info);
 
             all_classes_searched = False;
             class_lst = [];
@@ -135,8 +139,10 @@ class web_scrape_engine:
                 ## Below is the Algorithm for determining whether a tr row contains COURSE INFO and extract correct data ##
                 #print("Before: ", next_tr_row)
                 td_tags_lst = next_tr_row.find_all("td");
+                print("\n\n",td_tags_lst);
                 #print("Here: ", td_tags_lst)
                 if _is_a_valid_class(td_tags_lst):
+                    print("\n valid class")
                     class_lst.append(dict(_generate_new_class(td_tags_lst)));
                     #print(class_lst, '\n\n\n')
                 next_tr_row = next_tr_row.find_next_sibling();
@@ -163,12 +169,13 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__' and debugging:
 
-    user_input_dict = {"YearTerm":"2019-14", "Dept":"EECS"}
+    user_input_dict = {"YearTerm":"2019-03", "Dept":"EECS"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
 
     engine = web_scrape_engine(user_input_dict);
     course_data = engine.extract_data();
+    print(course_data);
     print("\n\n")
     for courses in course_data:
         for v in courses.values():
@@ -180,4 +187,4 @@ if __name__ == '__main__' and debugging:
     print(f'\n\n\n--------------Number of Found Courses: {len(course_data)}--------------\n');
 
 
-    #print(engine.soup);
+    print(engine.soup);

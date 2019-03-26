@@ -4,6 +4,8 @@
 #=======================================
 #==            IMPORTS LIB            ==
 #=======================================
+import pathlib
+
 import Pages as P
 import GuiWidgets as W
 
@@ -16,6 +18,7 @@ from PIL import Image, ImageTk
 #==          GLOBAL CONSTANTS         ==
 #=======================================
 DEBUGGING = True;
+CURR_WORKING_DIR = pathlib.Path.cwd();
 
 #=======================================
 #==            Source Code            ==
@@ -23,21 +26,15 @@ DEBUGGING = True;
 
 class HomePage(P.Pages):
 
-    def __init__(self, MainFrame):
-        super().__init__(MainFrame);  # instantiate "self.PageFrame"
-
-        # ------ Instantiate TK VAR ------ #
-        self.account_name = tk.StringVar();
-        self.account_password = tk.StringVar();
-        # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
-
+    def __init__(self, MainFrame, account_name, account_password):
+        super().__init__(MainFrame, account_name, account_password);  # instantiate "self.PageFrame"
         self.create_frame();
         self.layout_frame();
         self.generate_widgets();
 
     def create_frame(self):
 
-        ht = (70,70,70,40,100,35,56,30,56,50,32,65,46); #height tuple for each frame below sequentially
+        ht = (70,70,70,40,100,35,56,30,56,50,32,65,46); # height tuple for each frame below sequentially
 
         w,h = self.page_size();
 
@@ -74,9 +71,9 @@ class HomePage(P.Pages):
         self.Fblank6.grid(column = 0, row = 11, sticky = self.ALL_STICK);
         self.Ffooter.grid(column = 0, row = 12, sticky = self.ALL_STICK);
 
-    def FHeader_widgets(self):
+    def Fheader_widgets(self):
 
-        self.home_image = W.OpenImage("UCI_black_logo.png");
+        self.home_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"UCI_black_logo.png");
 
         self.home_canvas = W.Canvas(self.Fheader, 300, 70, bg = '#000000');
         self.home_canvas.pack(anchor = tk.NW);
@@ -95,7 +92,7 @@ class HomePage(P.Pages):
         self.welcome_banner_label.pack();
 
     def Faccount_image_widgets(self):
-        self.account_image = W.OpenImage("account_image.png");
+        self.account_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"account_image.png");
         self.account_image_label = tk.Label(self.Faccount_image, image = self.account_image,
                                             bd = 0,  relief = tk.FLAT,
                                             bg = '#ffffff', activebackground = '#ffffff');
@@ -111,7 +108,7 @@ class HomePage(P.Pages):
         self.account_name_entry = tk.Entry(self.Faccount_name, width = 30, textvariable = self.account_name,
                                            font = font.Font(family = "Segoe UI", size = -17),
                                            bg='#ffffff', bd = 0, relief = tk.GROOVE,
-                                           highlightbackground = '#666666', highlightthickness = 2);
+                                           highlightbackground = '#666666', highlightcolor='#666666', highlightthickness = 2);
         self.account_name_entry.grid(column = 0, row = 1, sticky = tk.W, padx = (500,0), pady = (5,0));
 
     def Faccount_password_widgets(self):
@@ -122,22 +119,22 @@ class HomePage(P.Pages):
         self.account_password_entry = tk.Entry(self.Faccount_password, width = 30, textvariable = self.account_password,
                                                font = font.Font(family = "Segoe UI", size = -17),
                                                bg='#ffffff', bd = 0, relief = tk.GROOVE,
-                                               highlightbackground='#666666', highlightthickness=2,
+                                               highlightbackground='#666666', highlightcolor='#666666', highlightthickness=2,
                                                show = '*');
         self.account_password_entry.grid(column = 0, row = 1, sticky = tk.W, padx = (500,0), pady = (5,0));
 
     def Fsubmit_widgets(self):
-        self.submit_button_image = W.OpenImage("home_submit_button.png");
+        self.submit_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"home_submit_button.png");
         self.submit_button = tk.Button(self.Fsubmit, image = self.submit_button_image,
                                        bd = 0, highlightthickness = 0);
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
-        def temp_func(event, self = self):
+        def jump_to_FunctionPage(event, self = self):
             popmsg.showinfo("Account/Password capture Succeed", f"Your Gmail Account = {self.account_name.get()}\n Your Password = {self.account_password.get()}");
-        self.submit_button.bind('<Button-1>', func = temp_func);
+        self.submit_button.bind('<Button-1>', func = jump_to_FunctionPage);
 
     def Ffooter_widgets(self):
-        self.moreinfo_button_image = W.OpenImage("LearnMore_icon.png");
+        self.moreinfo_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
                                          bg = '#ffffff', pady = 9,
                                          bd = 0, highlightthickness = 0);
@@ -149,7 +146,7 @@ class HomePage(P.Pages):
         self.moreinfo_button.bind('<Button-1>', func = temp_func);
 
     def generate_widgets(self):
-        self.FHeader_widgets();
+        self.Fheader_widgets();
         self.Fwelcome_banner_widgets();
         self.Faccount_image_widgets();
         self.Faccount_name_widgets();
