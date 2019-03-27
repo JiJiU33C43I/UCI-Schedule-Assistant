@@ -179,6 +179,7 @@ class HomePage(P.Pages):
             except smtp_engine.LOGIN_FAILURE:
                 popmsg.showerror("Login Failure", "\
 1. Please Re-Check your account name and password are correct \n \
+3. ONLY GMAIL ACCOUNT is currently supported \n \
 2. Please Make Sure you have enabled the permission called <Let Less Secure App access your account> in your gmail account");
             except smtp_engine.FAILED_TO_SENDMAIL:
                 popmsg.showerror("Unable to Send Mail", "\

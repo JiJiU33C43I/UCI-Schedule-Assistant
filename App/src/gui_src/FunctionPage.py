@@ -32,6 +32,8 @@ import pathlib
 from os import sys, path
 sys.path.append(path.dirname(path.dirname(__file__)))
 
+from scrape_search_fields import scrape_fields
+
 import Pages as P
 import GuiWidgets as W
 
@@ -60,6 +62,11 @@ class FunctionPage(P.Pages):
         super().__init__(MainFrame, account_name, account_password);  # instantiate PageFrame
         self.page_id = "FP";
         self.next_page_id = "FP";
+
+        temp_search_field_engine = scrape_fields();
+        temp_search_field_engine.start_to_scrape();
+        self.search_fields = temp_search_field_engine.get_fields_dict();
+
         self.create_frame();
         self.layout_frame();
         self.generate_widgets();
@@ -126,9 +133,12 @@ class FunctionPage(P.Pages):
         self.term_label = tk.Label(self.searchcourse_term_frame, text="Term:",
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff');
+
+        self.term_option_lists = tuple([ k for k in self.search_fields["YearTerm"] ]);
+
         self.term_curr = tk.StringVar();
-        self.term_curr.set("a");
-        self.term_option = tk.OptionMenu(self.searchcourse_term_frame, self.term_curr, "a", "b", "c");
+        self.term_curr.set(self.term_option_lists[0]);
+        self.term_option = tk.OptionMenu(self.searchcourse_term_frame, self.term_curr, *self.term_option_lists);
         #print(self.term_option.keys())
         self.term_option.configure(width=100, bg="#ffffff", relief=tk.FLAT, anchor=tk.W, padx=10,
                                    highlightthickness=2, highlightbackground="#666666", highlightcolor='#666666',
@@ -140,9 +150,12 @@ class FunctionPage(P.Pages):
         self.dept_label = tk.Label(self.searchcourse_dept_frame, text="By Department:",
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff');
+
+        self.dept_option_lists = tuple([ k for k in self.search_fields["Dept"] ]);
+
         self.dept_curr = tk.StringVar();
-        self.dept_curr.set("a");
-        self.dept_option = tk.OptionMenu(self.searchcourse_dept_frame, self.dept_curr, "a", "b", "c");
+        self.dept_curr.set(self.dept_option_lists[0]);
+        self.dept_option = tk.OptionMenu(self.searchcourse_dept_frame, self.dept_curr, *self.dept_option_lists);
         self.dept_option.configure(width=100, bg="#ffffff", relief=tk.FLAT, anchor=tk.W, padx=10,
                                    highlightthickness=2, highlightbackground="#666666", highlightcolor='#666666',
                                    font=font.Font(family="Segoe UI", size=-13) );
@@ -154,7 +167,7 @@ class FunctionPage(P.Pages):
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff');
         self.code_curr = tk.StringVar();
-        self.code_curr.set("a");
+        self.code_curr.set("");
         self.code_entry = tk.Entry(self.searchcourse_code_frame, width=100, textvariable=self.code_curr,
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff', bd=0, relief=tk.GROOVE,

@@ -139,6 +139,10 @@ class Email_Engine:
             raise SETUP_SMTP_CONNECTION_ERROR("Failed to establish TLS connection: Detected already established connection ");
 
 
+#=======================================
+#==       DEBUGGING AND TESTING       ==
+#=======================================
+
 if __name__ == "__main__":
     EE = Email_Engine();
     EE.setup_tls_connection();
