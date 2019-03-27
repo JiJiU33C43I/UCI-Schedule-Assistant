@@ -96,7 +96,7 @@ class main_gui():
         # --------- Initialize the First Page --------- #
         page_id = ("HP", "FP", "AB");
         self.curr_page_id = "HP";
-        self.CurrentPage = HomePage.HomePage(self.MainFrame, self.account_name, self.account_password);
+        self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 
@@ -109,6 +109,7 @@ class main_gui():
 
     def update(self):
         self.MainFrame.update();
+        self.CurrentPage.update();
         #print("Email: {}; Password: {}".format(self.account_name.get(), self.account_password.get()));
         if (self.CurrentPage.switch()):
             self.CurrentPage.destroy();

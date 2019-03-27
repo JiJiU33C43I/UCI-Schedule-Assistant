@@ -59,12 +59,15 @@ class Course:
         for classes in self._derived_classes:
             yield classes;
 
+    def __len__(self):
+        return len(self._derived_classes);
+
     def add(self, value):
         if not isinstance(value, Course):
             raise InvalidCourseException(f"{type(self)}.add(self, {value}): \
-            ONLY Course instance object can be added to the derived class set; \
-            argument = {value}");
-        self._derived_classes.add(value);
+ONLY Course instance object can be added to the derived class list; \
+argument = {value}");
+        self._derived_classes.append(value);
 
     def name(self):
         return (self._coursename, self._formalname);

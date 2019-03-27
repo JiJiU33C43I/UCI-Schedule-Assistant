@@ -67,6 +67,9 @@ class FunctionPage(P.Pages):
         temp_search_field_engine.start_to_scrape();
         self.search_fields = temp_search_field_engine.get_fields_dict();
 
+        self.tracked_courses = set();
+        self.display_tracked_course = tk.StringVar();
+
         self.create_frame();
         self.layout_frame();
         self.generate_widgets();
@@ -85,6 +88,22 @@ class FunctionPage(P.Pages):
         self.Fsearchcourse.grid(column = 0, row = 2);
         self.Fdisplaypanel.grid(column = 1, row = 1, rowspan = 2);
 
+    def update(self):
+        super().update();
+        self.refresh_tracked_courses(self.trackedcourse_panel);
+
+    def get_tracked_courses(self) -> set:
+        display_str = self.display_tracked_course.get().replace("'", " ").replace("(", " ").replace(")", " ").replace(",", " ");
+        displaying_list = display_str.split();
+        return set(displaying_list);
+
+    def refresh_tracked_courses(self, display_widgets):
+        if (self.get_tracked_courses() != self.tracked_courses):
+            display_widgets.delete(0, display_widgets.size()-1);
+            for course in self.tracked_courses:
+                display_widgets.insert(tk.END,course);
+
+
     def Fheader_widgets(self):
 
         self.home_image = W.OpenImage(CURR_WORKING_DIR / "pics" / "UCI_black_logo.png");
@@ -101,7 +120,7 @@ class FunctionPage(P.Pages):
 
 
     def Fcurrentcourse_widgets(self):
-        self.currentcourse_label = tk.Label(self.Fcurrentcourse, text = "TRACKED COURSES",
+        self.currentcourse_label = tk.Label(self.Fcurrentcourse, text = "TRACKED COURSES", height = 3,
                                             font = font.Font(family = "Arial", size = -20, weight = "bold"),
                                             bg = '#ffffff', bd = 0, pady = 10);
         self.currentcourse_label.grid(row = 0, column = 0, columnspan = 3, pady = (10,0), sticky = self.ALL_STICK);
@@ -112,16 +131,26 @@ class FunctionPage(P.Pages):
         self.trackedcourse_panel = tk.Listbox(self.Fcurrentcourse, selectmode = tk.MULTIPLE, relief = tk.GROOVE,
                                               width = 28, bd = 2, bg = '#ffffff', highlightthickness = 0,
                                               font = font.Font(family = "Segoe UI", size = 14),
-                                              yscrollcommand = self.trackedcourse_scrollbar.set);
+                                              yscrollcommand = self.trackedcourse_scrollbar.set,
+                                              listvariable = self.display_tracked_course);
         self.trackedcourse_scrollbar.grid(row = 1, column = 1, sticky = self.ALL_STICK);
         self.trackedcourse_panel.grid(row = 1, column = 0, sticky = self.ALL_STICK);
         self.trackedcourse_scrollbar.config(command = self.trackedcourse_panel.yview)
-        for i in range(100):
-            self.trackedcourse_panel.insert(tk.END, "hi");
-
 
         self.trackedcourse_control_frame = W.Frame(self.Fcurrentcourse, 90, 0, hlt = 1, hlb = '#ff0000');
         self.trackedcourse_control_frame.grid(row = 1, column = 2, sticky = self.ALL_STICK);
+
+        self.starttrack_button_frame = W.Frame(self.Fcurrentcourse, 400, 60);
+        self.starttrack_button_frame.grid(row = 2, column = 0, columnspan = 3, sticky = self.ALL_STICK);
+        self.starttrack_button_icon = W.OpenImage(CURR_WORKING_DIR/"pics"/"start_tracking_button.png");
+        self.starttrack_button = tk.Button(self.starttrack_button_frame, image = self.starttrack_button_icon,
+                                           bd=0, highlightthickness=0);
+
+        def temp_func(event):
+            self.tracked_courses.add("hi");
+
+        self.starttrack_button.bind('<Button-1>', func=temp_func);
+        self.starttrack_button.pack(pady = 15);
 
         self.Fcurrentcourse.columnconfigure(0, weight = 1);
         self.Fcurrentcourse.columnconfigure(1, weight = 1);
@@ -181,6 +210,9 @@ class FunctionPage(P.Pages):
         self.search_submit_button = tk.Button(self.searchcourse_button_frame, image=self.search_submit_img,
                                               bd=0, highlightthickness=0);
         self.search_submit_button.pack(pady = 15);
+
+        #self.search_submit_button.bind('<Button-1>', func=);
+
 
 
     def Fsearchcourse_widgets(self):
