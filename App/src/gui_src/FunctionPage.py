@@ -103,6 +103,47 @@ class FunctionPage(P.Pages):
             for course in self.tracked_courses:
                 display_widgets.insert(tk.END,course);
 
+    def refresh_display_panel_to_show_meme(self):
+        self.Fdisplaypanel.destroy();
+        self.Fdisplaypanel = W.Frame(self.PageFrame, 880, 650);
+        self.Fdisplaypanel.grid(column=1, row=1, rowspan=2);
+        self.display_canvas = W.Canvas(self.Fdisplaypanel, 880, 650);
+        self.display_canvas.pack();
+        self.idle_image = W.OpenImage(CURR_WORKING_DIR / "pics" / "MemePic.png");
+        self.idle_image_canvas = self.display_canvas.create_image(0, 0, anchor=tk.NW, image=self.idle_image);
+
+    def _scroll_canvas(self, event):
+        self.display_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units");
+
+    def refresh_display_panel_to_show_courses(self):
+        self.Fdisplaypanel.destroy();
+        self.Fdisplaypanel = W.Frame(self.PageFrame, 880, 650);
+        self.Fdisplaypanel.grid(column=1, row=1, rowspan=2);
+        self.display_canvas = W.Canvas(self.Fdisplaypanel, 860, 650, bg = '#BEF7A6');
+        self.display_scroll = tk.Scrollbar(self.Fdisplaypanel, width = 20, orient = tk.VERTICAL)
+        self.display_scroll.config(command = self.display_canvas.yview)
+        self.display_scroll.grid(row = 0, column = 1, sticky = self.ALL_STICK);
+        self.display_canvas.config(yscrollcommand = self.display_scroll.set);
+        self.display_canvas.grid(row=0, column=0, sticky=self.ALL_STICK);
+        self.Fdisplaypanel.bind_all("<MouseWheel>", self._scroll_canvas)
+
+        curr_x, curr_y, w_rect, h_rect = (0,0,860,50);
+        bright_color = True;
+        for course in self.CD:
+            coursename, formalname = course.name();
+            curr_rect = self.display_canvas.create_rectangle(curr_x, curr_y, curr_x + w_rect, curr_y + h_rect,
+                                                             fill = ("#C9C9C9" if bright_color else "#FFFFFF"));
+            curr_coursename = self.display_canvas.create_text(curr_x + 20, curr_y+h_rect/2,
+                                                              font = font.Font(family = "Arial", size = 14),
+                                                              anchor = tk.W, text = coursename);
+            curr_formalname = self.display_canvas.create_text(curr_x + 175, curr_y + h_rect / 2,
+                                                              font=font.Font(family="Arial", size=14, weight = "bold"),
+                                                              anchor=tk.W, text=formalname);
+            curr_y += h_rect;
+            bright_color = not bright_color;
+
+        self.display_canvas.config(scrollregion=(0,0,860,(curr_y if curr_y >= 650 else 650)));
+
 
     def Fheader_widgets(self):
 
@@ -163,6 +204,8 @@ class FunctionPage(P.Pages):
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff');
 
+        print(self.search_fields)
+
         self.term_option_lists = tuple([ k for k in self.search_fields["YearTerm"] ]);
 
         self.term_curr = tk.StringVar();
@@ -211,7 +254,19 @@ class FunctionPage(P.Pages):
                                               bd=0, highlightthickness=0);
         self.search_submit_button.pack(pady = 15);
 
-        #self.search_submit_button.bind('<Button-1>', func=);
+        def search_button_func(event):
+            try:
+                self.CD = self.scrape_course_data(self.term_curr.get(), self.dept_curr.get(), self.code_curr.get());
+                self.refresh_display_panel_to_show_courses()
+            except self.SearchFailure:
+                self.refresh_display_panel_to_show_meme();
+                popmsg.showerror("Fatal Error occurred during Search", "There are several reasons that might lead to this error:\n \
+1. One of your search fields might contain invalid input (CourseCode has to be valid).\n \
+2. We can NOT find ANY courses that fulfils your search filter/parameter \n \
+3. Your Internet Connection might be down \n \
+4. There is a bug in our codes/system");
+
+        self.search_submit_button.bind('<Button-1>', func=search_button_func);
 
 
 

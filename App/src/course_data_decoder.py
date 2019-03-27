@@ -42,7 +42,7 @@ import web_scrape_engine
 PRIMARYCLASS_TYPE = ('ACT', 'COL', 'FLD', 'LEC', 'QIZ', 'RES', 'SEM', 'STU', 'TAP', 'TUT');
 SECONDARYCLASS_TYPE = ('DIS', 'LAB');
 
-DEBUGGING = True;
+DEBUGGING = False;
 
 
 #=======================================
@@ -128,12 +128,14 @@ class CourseDecoder:
 #=======================================
 if __name__ == '__main__':
 
-    user_input_dict = {"YearTerm":"2019-14", "Dept":"I&C SCI"}
+    user_input_dict = {"YearTerm":"2019-14", "Dept":"CHEM"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
     engine = web_scrape_engine.web_scrape_engine(user_input_dict);
     course_data = engine.extract_data();
     CD = CourseDecoder(course_data);
+
+    print("\n\n",course_data, "\n\n")
 
     print(f'---------------------- START DECODING ----------------------')
     for course in CD:

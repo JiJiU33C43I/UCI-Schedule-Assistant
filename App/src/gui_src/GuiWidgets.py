@@ -56,9 +56,10 @@ class Frame(tk.Frame):
 class Canvas(tk.Canvas):
     def __init__(self, parent, w, h, relief = tk.FLAT,
                  bd = 0, bg = "#ffffff", hlb = "#ffffff", hlc = "#ffffff", hlt = 0,
-                 pp = False, gp = False):
+                 pp = False, gp = False, sr = (0,0,0,0)):
         super().__init__(parent, width = w, height = h, relief = relief,
-                         bd = bd, bg = bg, highlightbackground = hlb, highlightcolor = hlc, highlightthickness = hlt);
+                         bd = bd, bg = bg, highlightbackground = hlb, highlightcolor = hlc, highlightthickness = hlt,
+                         scrollregion = sr);
         self.pack_propagate(pp);
         self.grid_propagate(gp);
 

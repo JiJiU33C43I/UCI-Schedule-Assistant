@@ -73,7 +73,7 @@ argument = {value}");
         return (self._coursename, self._formalname);
 
     def set_coursename(self, coursename:str):
-        self._coursename = (''.join(coursename.split())).upper();
+        self._coursename = (''.join(coursename.split()));
 
     def set_formalname(self, formalname:str):
         self._formalname = formalname;

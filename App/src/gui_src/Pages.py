@@ -34,7 +34,9 @@ import GuiWidgets as W;
 from os import sys, path
 sys.path.append(path.dirname(path.dirname(__file__)))
 import smtp_engine
-
+import web_scrape_engine
+import update_course_data
+import course_data_decoder
 
 
 #=======================================
@@ -53,6 +55,9 @@ class Pages:
         pass;
 
     class SendMailMustReceiveTextAsArguments(Exception):
+        pass;
+
+    class SearchFailure(Exception):
         pass;
 
     ALL_STICK = tk.N + tk.S + tk.W + tk.E;
@@ -80,6 +85,21 @@ class Pages:
             else:
                 email_engine.sendmail(acc_name, acc_name, msg);
         email_engine.__del__();
+
+    def scrape_course_data(self, term_curr = "", dept_curr = "", code_curr = ""):
+        user_input_dict = {"YearTerm":self.search_fields["YearTerm"][term_curr],
+                           "Dept":self.search_fields["Dept"][dept_curr],
+                           "CourseCodes":code_curr};
+        try:
+            engine = web_scrape_engine.web_scrape_engine(user_input_dict);
+            course_data = engine.extract_data();
+            print(course_data)
+            if course_data == None:
+                raise self.SearchFailure("course_data = None");
+            return course_data_decoder.CourseDecoder(course_data);
+        except:
+            raise self.SearchFailure("fatal error during search");
+
 
     def switch(self):
         return self._switch_page;

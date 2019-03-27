@@ -42,7 +42,7 @@ import urllib.parse
 base_schedule_of_classes_url = "https://www.reg.uci.edu/perl/WebSoc";
 BeautifulSoup_Parser = "html.parser"    # LXML Parser requires the third party library <lxml> to be installed
 course_info_header = ["Code", "Type", "Sec", "Units", "Instructor", "Time", "Place", "Final","Max", "Enr", "WL", "Req", "Rstr", "Textbooks", "Web", "Status"];
-DEBUGGING = True;
+DEBUGGING = False;
 
 
 #=======================================
@@ -208,7 +208,7 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__':
 
-    user_input_dict = {"YearTerm":"2019-39", "Dept":"I&C SCI"}
+    user_input_dict = {"YearTerm":"2019-14", "Dept":"CHEM"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
     engine = web_scrape_engine(user_input_dict);

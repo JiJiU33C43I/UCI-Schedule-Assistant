@@ -210,7 +210,7 @@ argument = {value}");
 
     def set_status(self, status:str):
         if status != None:
-            if status not in STATUS_SET:
+            if status.upper() not in STATUS_SET:
                 raise InvalidClassAttribute(f"{type(self)}.set_status(self, {status}): unable to set status because status given is Invalid")
             self._status= status.upper();
         else:
