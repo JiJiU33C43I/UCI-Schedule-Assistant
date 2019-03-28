@@ -33,6 +33,7 @@ from bs4 import BeautifulSoup
 from collections import defaultdict
 import urllib.request
 import urllib.parse
+import ssl
 
 
 
@@ -72,9 +73,11 @@ class web_scrape_engine:
     def __init__(self, user_input_dict: dict):
         self._user_input_dict = user_input_dict;
         self._user_input_dict["ShowFinals"] = "on";
+        self._ssl_context = ssl.SSLContext();
         self.parse_url();
         self.soup = self.request_page();
         self._replace_special_character();
+
 
     def __str__(self):
         return self.soup.prettify();
@@ -93,7 +96,7 @@ class web_scrape_engine:
     def request_page(self):
         try:
             if DEBUGGING: print(f"Sending Request to '{self.base_url + self.parsed_url}'...")
-            HTTP_response = urllib.request.urlopen(self.parsed_url);
+            HTTP_response = urllib.request.urlopen(self.parsed_url, context = self._ssl_context);
             if DEBUGGING: print("HTTP Response Received!\nStart to Decode Response...\nIt might take a few minutes, please wait...");
             html_page_source = HTTP_response.read();
             if DEBUGGING: print("Succesfully Read and Decode Response!")
@@ -208,7 +211,7 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__':
 
-    user_input_dict = {"YearTerm":"2019-14", "Dept":"CHEM"}
+    user_input_dict = {"YearTerm":"2019-14", "Dept":"EECS"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
     engine = web_scrape_engine(user_input_dict);

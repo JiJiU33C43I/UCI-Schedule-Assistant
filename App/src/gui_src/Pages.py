@@ -44,6 +44,15 @@ import course_data_decoder
 #=======================================
 DEBUGGING = True;
 
+def get_current_os():
+    operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'OS X', 'win32':'Windows'}
+    if sys.platform not in operating_systems:
+        return sys.platform;
+    else:
+        return operating_systems[sys.platform];
+
+CURR_OPERATING_SYSTEM = get_current_os();
+
 #=======================================
 #==            Source Code            ==
 #=======================================

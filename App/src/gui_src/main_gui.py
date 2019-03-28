@@ -54,6 +54,15 @@ START_COORDINATE = (25,25);
 
 CURR_WORKING_DIR = pathlib.Path.cwd();
 
+def get_current_os():
+    operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'MAC OS X', 'win32':'Windows'}
+    if sys.platform not in operating_systems:
+        return sys.platform;
+    else:
+        return operating_systems[sys.platform];
+
+CURR_OPERATING_SYSTEM = get_current_os();
+
 #=======================================
 #==            Source Code            ==
 #=======================================
@@ -76,7 +85,7 @@ class main_gui():
         # ------ DEFINING THE ROOT APP WINDOW ------ #
         self.Root = tk.Tk();
         self.Root.iconbitmap(CURR_WORKING_DIR/"pics"/"app_icon.ico");
-        self.Root.title("UCI Schedule Assistant");
+        self.Root.title("UCI Schedule Assistant - {} Operating System".format(CURR_OPERATING_SYSTEM));
         self.Root.geometry(f"{w}x{h}+{x}+{y}");
         self.Root.resizable(width = False, height = False);
         self.Root.grid_propagate(False);

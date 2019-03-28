@@ -50,6 +50,15 @@ from PIL import Image, ImageTk
 DEBUGGING = True;
 CURR_WORKING_DIR = pathlib.Path.cwd();
 
+def get_current_os():
+    operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'OS X', 'win32':'Windows'}
+    if sys.platform not in operating_systems:
+        return sys.platform;
+    else:
+        return operating_systems[sys.platform];
+
+CURR_OPERATING_SYSTEM = get_current_os();
+
 #=======================================
 #==            Source Code            ==
 #=======================================
@@ -162,6 +171,7 @@ class HomePage(P.Pages):
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
         def jump_to_FunctionPage(event, self = self):
+            print("jump to FunctionPage");
             try:
                 with open(CURR_WORKING_DIR / "initialization_email_msg.txt") as f:
                     acc_name = self.account_name.get();
@@ -190,6 +200,7 @@ class HomePage(P.Pages):
                 self._switch_page = True;
 
         self.submit_button.bind('<Button-1>', func = jump_to_FunctionPage);
+        self.MainFrame.bind_all('<Return>', func = jump_to_FunctionPage);
 
     def Ffooter_widgets(self):
         self.moreinfo_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"LearnMore_icon.png");

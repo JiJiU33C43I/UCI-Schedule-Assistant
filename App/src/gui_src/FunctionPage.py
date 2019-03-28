@@ -50,6 +50,15 @@ from tkinter import ttk
 DEBUGGING = True;
 CURR_WORKING_DIR = pathlib.Path.cwd();
 
+def get_current_os():
+    operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'OS X', 'win32':'Windows'}
+    if sys.platform not in operating_systems:
+        return sys.platform;
+    else:
+        return operating_systems[sys.platform];
+
+CURR_OPERATING_SYSTEM = get_current_os();
+
 
 #=======================================
 #==            Source Code            ==
@@ -129,10 +138,15 @@ class FunctionPage(P.Pages):
 
         curr_x, curr_y, w_rect, h_rect = (0,0,860,50);
         bright_color = True;
+
+        self.clickable_rect = [];
+
         for course in self.CD:
             coursename, formalname = course.name();
             curr_rect = self.display_canvas.create_rectangle(curr_x, curr_y, curr_x + w_rect, curr_y + h_rect,
                                                              fill = ("#C9C9C9" if bright_color else "#FFFFFF"));
+            self.clickable_rect.append(curr_rect);
+
             curr_coursename = self.display_canvas.create_text(curr_x + 20, curr_y+h_rect/2,
                                                               font = font.Font(family = "Arial", size = 14),
                                                               anchor = tk.W, text = coursename);
@@ -142,6 +156,8 @@ class FunctionPage(P.Pages):
             curr_y += h_rect;
             bright_color = not bright_color;
 
+
+        
         self.display_canvas.config(scrollregion=(0,0,860,(curr_y if curr_y >= 650 else 650)));
 
 

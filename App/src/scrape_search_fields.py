@@ -32,6 +32,7 @@ SOFTWARE.
 import urllib.request
 from bs4 import BeautifulSoup
 from collections import defaultdict
+import ssl
 
 
 #=======================================
@@ -56,9 +57,10 @@ class scrape_fields:
         self._url = url;
         self._search_fields = search_fields;
         self._field_option_dict = defaultdict(dict);
+        self._ssl_context = ssl.SSLContext();
 
     def start_to_scrape(self):
-        HTTP_response = urllib.request.urlopen(self._url);
+        HTTP_response = urllib.request.urlopen(self._url, context = self._ssl_context);
         schedule_search_soup = BeautifulSoup(HTTP_response.read(), "html.parser");
         for search_field in self._search_fields:
             select_tag_lst = schedule_search_soup.find_all("select", {"name":search_field});
