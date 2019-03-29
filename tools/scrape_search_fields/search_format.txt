@@ -5,6 +5,10 @@ Search_name | YearTerm
 
 User Selection Option | Search_value 
  ---------- | ---------- 
+2019  Summer Session 2 | 2019-76 
+2019  10-wk Summer | 2019-39 
+2019  Summer Session 1 | 2019-25 
+2019  Spring Quarter | 2019-14 
 2019  Winter Quarter | 2019-03 
 2018  Fall Quarter | 2018-92 
 2018  Summer Session 2 | 2018-76 
@@ -42,11 +46,7 @@ User Selection Option | Search_value
 2014  Spring Quarter | 2014-14 
 2014  Winter Quarter | 2014-03 
 2013  Fall Quarter | 2013-92 
-2013  Summer Session 2 | 2013-76 
 2013  Summer Qtr (COM) | 2013-51 
-2013  10-wk Summer | 2013-39 
-2013  Summer Session 1 | 2013-25 
-2013  Spring Quarter | 2013-14 
 
 
 <br>
@@ -95,11 +95,11 @@ GE Vb: Formal Reasoning (starting Fall 2012) | GE-5B
 GE VI: Language other than English | GE-6 
 GE VII: Multicultural Studies | GE-7 
 GE VIII: International/Global Issues | GE-8 
-Â Â Â Â --- General Education category (prior to Fall 2012) --- | ANY 
+    --- General Education category (prior to Fall 2012) --- | ANY 
 GE V: Quantitative, Symbolic, and Computational Reasoning | GE-5 
-Â Â Â Â --- General Education category (prior to Fall 2011) --- | ANY 
+    --- General Education category (prior to Fall 2011) --- | ANY 
 GE IX: Laboratory or Performance | GE-9 
-Â Â Â Â --- Breadth categories (prior to Fall 2008) --- | ANY 
+    --- Breadth categories (prior to Fall 2008) --- | ANY 
 Breadth Ia: Lower Division Writing | 1A 
 Breadth Ib: Upper Division Writing | 1B 
 Breadth II: Natural Sciences | 2 
@@ -141,6 +141,7 @@ BIOCHEM . . . . Biological Chemistry | BIOCHEM
 BME . . . . . . . . Biomedical Engineering | BME 
 BSEMD . . . . . .Bio Sci & Educational Media Design (until 2017 Wtr) | BSEMD 
 CAMPREC . . . .Campus Recreation | CAMPREC 
+CBE . . . . . . . . Chemical and Biomolecular Engineering (started 2018 Fall) | CBE 
 CBEMS . . . . . .Chemical Engr and Materials Science | CBEMS 
 CEM . . . . . . . . Community and Environmental Medicine | CEM 
 CHC/LAT . . . . . Chicano Latino | CHC/LAT 
@@ -214,7 +215,8 @@ MGMTMBA . . . Management MBA | MGMTMBA
 MGMTPHD . . . .Management PhD | MGMTPHD 
 MIC BIO . . . . . .Microbiology | MIC BIO 
 MOL BIO . . . . . Molecular Biology and Biochemistry | MOL BIO 
-MPAC . . . . . . .Accounting (started 2013 SS1) | MPAC 
+MPAC . . . . . . .Accounting | MPAC 
+MSE . . . . . . . . Materials Science and Engineering (started 2018 Fall) | MSE 
 MUSIC . . . . . . .Music | MUSIC 
 NET SYS . . . . .Networked Systems | NET SYS 
 NEURBIO . . . . .Neurobiology and Behavior | NEURBIO 
@@ -390,7 +392,7 @@ Search_name | StartTime
 
 User Selection Option | Search_value 
  ---------- | ---------- 
-Â  |  
+  |  
 1:00am | 1:00am 
 2:00am | 2:00am 
 3:00am | 3:00am 
@@ -447,7 +449,7 @@ User Selection Option | Search_value
 9:00pm | 9:00pm 
 10:00pm | 10:00pm 
 11:00pm | 11:00pm 
-Â  |  
+  |  
 
 
 <br>
@@ -472,7 +474,7 @@ Search_name | FullCourses
 
 User Selection Option | Search_value 
  ---------- | ---------- 
-Â  | ANY 
+  | ANY 
 Include full courses if space on waitlist | SkipFullWaitlist 
 Skip courses that are full | SkipFull 
 Show only full or waitlisted courses | FullOnly 

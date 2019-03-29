@@ -1,3 +1,27 @@
+'''
+MIT License
+
+Copyright (c) 2019 JiJiU33C43I Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+'''
+
 ##### HomePage.py #####
 # This is a python module that creates the Homepage for UCI-Schedule-Assistant
 
@@ -5,6 +29,12 @@
 #==            IMPORTS LIB            ==
 #=======================================
 import pathlib
+from os import sys, path
+sys.path.append(path.dirname(path.dirname(__file__)))
+
+import smtp_engine
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import Pages as P
 import GuiWidgets as W
@@ -20,6 +50,15 @@ from PIL import Image, ImageTk
 DEBUGGING = True;
 CURR_WORKING_DIR = pathlib.Path.cwd();
 
+def get_current_os():
+    operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'OS X', 'win32':'Windows'}
+    if sys.platform not in operating_systems:
+        return sys.platform;
+    else:
+        return operating_systems[sys.platform];
+
+CURR_OPERATING_SYSTEM = get_current_os();
+
 #=======================================
 #==            Source Code            ==
 #=======================================
@@ -28,6 +67,8 @@ class HomePage(P.Pages):
 
     def __init__(self, MainFrame, account_name, account_password):
         super().__init__(MainFrame, account_name, account_password);  # instantiate "self.PageFrame"
+        self.page_id = "HP";
+        self.next_page_id = "HP";
         self.create_frame();
         self.layout_frame();
         self.generate_widgets();
@@ -126,18 +167,46 @@ class HomePage(P.Pages):
     def Fsubmit_widgets(self):
         self.submit_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"home_submit_button.png");
         self.submit_button = tk.Button(self.Fsubmit, image = self.submit_button_image,
-                                       bd = 0, highlightthickness = 0);
+                                       bd = 0, highlightthickness = 0, cursor = 'hand2');
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
         def jump_to_FunctionPage(event, self = self):
-            popmsg.showinfo("Account/Password capture Succeed", f"Your Gmail Account = {self.account_name.get()}\n Your Password = {self.account_password.get()}");
+            print("jump to FunctionPage");
+            try:
+                with open(CURR_WORKING_DIR / "initialization_email_msg.txt") as f:
+                    acc_name = self.account_name.get();
+                    acc_pw = self.account_password.get();
+                    msg = MIMEMultipart();
+                    msg['From'] = acc_name;
+                    msg['To'] = acc_name;
+                    msg['Subject'] = "Welcome to the UCI Schedule Assistant";
+                    msg.attach(MIMEText(f.read(), 'html'));
+                    self.send_email(acc_name, acc_pw, msg.as_string());
+            except smtp_engine.SETUP_SMTP_CONNECTION_ERROR:
+                popmsg.showerror("Connection to Server Failed", "\
+1. Please Make Sure your Internet Connection is in good condition.\n \
+2. Please Make Sure you have enabled the permission called <Let Less Secure App access your account> in your gmail account");
+            except smtp_engine.LOGIN_FAILURE:
+                popmsg.showerror("Login Failure", "\
+1. Please Re-Check your account name and password are correct \n \
+3. ONLY GMAIL ACCOUNT is currently supported \n \
+2. Please Make Sure you have enabled the permission called <Let Less Secure App access your account> in your gmail account");
+            except smtp_engine.FAILED_TO_SENDMAIL:
+                popmsg.showerror("Unable to Send Mail", "\
+1. Please Make Sure your Internet Connection is in good condition.\n \
+2. Please Make Sure you have enabled the permission called <Let Less Secure App access your account> in your gmail account");
+            else:
+                self.next_page_id = "FP";
+                self._switch_page = True;
+
         self.submit_button.bind('<Button-1>', func = jump_to_FunctionPage);
+        self.MainFrame.bind_all('<Return>', func = jump_to_FunctionPage);
 
     def Ffooter_widgets(self):
         self.moreinfo_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
                                          bg = '#ffffff', pady = 9,
-                                         bd = 0, highlightthickness = 0);
+                                         bd = 0, highlightthickness = 0, cursor = 'hand2');
         self.moreinfo_button.pack(anchor = tk.E, padx = (0,6));
 
         def temp_func(event):
