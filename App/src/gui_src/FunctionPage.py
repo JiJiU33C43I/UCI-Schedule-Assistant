@@ -76,7 +76,7 @@ class FunctionPage(P.Pages):
         temp_search_field_engine.start_to_scrape();
         self.search_fields = temp_search_field_engine.get_fields_dict();
 
-        self.tracked_courses = set();
+        self.tracked_courses = dict();
         self.display_tracked_course = tk.StringVar();
 
         self.create_frame();
@@ -102,15 +102,19 @@ class FunctionPage(P.Pages):
         self.refresh_tracked_courses(self.trackedcourse_panel);
 
     def get_tracked_courses(self) -> set:
-        display_str = self.display_tracked_course.get().replace("'", " ").replace("(", " ").replace(")", " ").replace(",", " ");
+        #print(self.display_tracked_course.get());
+        display_str = self.display_tracked_course.get().replace("'", " ").replace('"', " ").replace("(", " ").replace(")", " ").replace(",", " ");
         displaying_list = display_str.split();
-        return set(displaying_list);
+        #print(displaying_list)
+        print(set([s for s in displaying_list if (displaying_list.index(s)%5==0)]));
+        return set([s for s in displaying_list if (displaying_list.index(s)%5==0)]);
 
     def refresh_tracked_courses(self, display_widgets):
-        if (self.get_tracked_courses() != self.tracked_courses):
+        if (self.get_tracked_courses() != set([course_description for course_description in self.tracked_courses])):
             display_widgets.delete(0, display_widgets.size()-1);
-            for course in self.tracked_courses:
-                display_widgets.insert(tk.END,course);
+            for course_description, course_obj in self.tracked_courses.items():
+                cn, fn = course_obj.name();
+                display_widgets.insert(tk.END,f"{course_description} {cn} {course_obj.type()} {course_obj.day()} {course_obj.hour()}");
 
     def refresh_display_panel_to_show_meme(self):
         self.Fdisplaypanel.destroy();
@@ -123,6 +127,16 @@ class FunctionPage(P.Pages):
 
     def _scroll_canvas(self, event):
         self.display_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units");
+
+
+    def return_add_tracked_course_function(self, course):
+        def add_tracked_course(event):
+            current_canvas_button = event.widget.find_withtag("current");
+            event.widget.delete(current_canvas_button);
+            self.tracked_courses[course.description()] = course;
+        return add_tracked_course;
+
+
 
 
     def return_display_one_course_function(self, course):
@@ -186,9 +200,10 @@ class FunctionPage(P.Pages):
                                           troughcolor=[('disabled', '#ffffff')],
                                           thickness = [('disabled', 13)],
                                           borderwidth = [('disabled', 0)]);
-            print(full_progressbar_style.layout('Full.Horizontal.TProgressbar'))
-            print(full_progressbar_style.element_options("Horizontal.Progressbar.trough"))
-            print(full_progressbar_style.element_options("Horizontal.Progressbar.pbar"))
+            #print(full_progressbar_style.layout('Full.Horizontal.TProgressbar'))
+            #print(full_progressbar_style.element_options("Horizontal.Progressbar.trough"))
+            #print(full_progressbar_style.element_options("Horizontal.Progressbar.pbar"))
+
             if (derived_class.status() == "FULL"):
                 curr_style = "Full.Horizontal.TProgressbar";
             elif (derived_class.status() == "WAITL"):
@@ -197,6 +212,8 @@ class FunctionPage(P.Pages):
                 curr_style = "Open.Horizontal.TProgressbar";
             elif (derived_class.status() == "NEWONLY"):
                 curr_style = "NewOnly.Horizontal.TProgressbar";
+
+
             curr_progress_bar = ttk.Progressbar(self.display_canvas, style = curr_style,
                                                 length=200, mode='determinate', orient=tk.HORIZONTAL,
                                                 variable = curr_progress_percentage);
@@ -251,15 +268,19 @@ class FunctionPage(P.Pages):
             course_info_indent = (40,110,160,210,270,500,620);
 
             for primary_course in course:
-                curr_add_button = self.display_canvas.create_image(curr_x, curr_y, image=self.add_button_img);
+                if primary_course.description() not in self.tracked_courses:
+                    curr_add_button = self.display_canvas.create_image(curr_x, curr_y, image=self.add_button_img);
+                    self.display_canvas.tag_bind(curr_add_button, '<Button-1>', func = self.return_add_tracked_course_function(primary_course));
                 display_class_info_on_canvas(primary_course, curr_x, curr_y-1, course_info_indent);
                 curr_y += next_increment_height;
                 for secondary_course in primary_course:
-                    curr_add_button = self.display_canvas.create_image(curr_x+indented_width, curr_y, image=self.add_button_img);
+                    if secondary_course.description() not in self.tracked_courses:
+                        curr_add_button = self.display_canvas.create_image(curr_x+indented_width, curr_y, image=self.add_button_img);
+                        self.display_canvas.tag_bind(curr_add_button, '<Button-1>', func=self.return_add_tracked_course_function(secondary_course));
                     display_class_info_on_canvas(secondary_course, curr_x+indented_width, curr_y-1, course_info_indent);
                     curr_y += next_increment_height;
 
-            print(curr_y)
+            #print(curr_y)
 
             self.display_canvas.config(scrollregion=(0, 0, 860, (curr_y if curr_y >= 650 else 650)));
 
@@ -331,6 +352,19 @@ class FunctionPage(P.Pages):
 
         self.home_canvas.tag_bind(self.home_canvas_img1, '<Button-1>', func = temp_func);
 
+    def reset_tracked_courses(self,event):
+        self.tracked_courses = dict();
+
+    def delete_selected_tracked_courses(self,event):
+        for line in range(self.trackedcourse_panel.size()):
+            #print(line)
+            if (self.trackedcourse_panel.selection_includes(line)):
+                #print(self.trackedcourse_panel.get(line))
+                display_str = self.trackedcourse_panel.get(line).replace("'", " ").replace('"', " ").replace("(", " ").replace(")", " ").replace(",", " ");
+                displaying_list = display_str.split();
+                selected_course_description = displaying_list[0];
+                del self.tracked_courses[selected_course_description];
+
 
     def Fcurrentcourse_widgets(self):
         self.currentcourse_label = tk.Label(self.Fcurrentcourse, text = "TRACKED COURSES", height = 3,
@@ -340,21 +374,36 @@ class FunctionPage(P.Pages):
 
 
 
-        self.trackedcourse_scrollbar = tk.Scrollbar(self.Fcurrentcourse, width = 15, orient = tk.VERTICAL);
+        self.trackedcourse_vertical_scrollbar = tk.Scrollbar(self.Fcurrentcourse, width = 15, orient = tk.VERTICAL);
+        self.trackedcourse_horizontal_scrollbar = tk.Scrollbar(self.Fcurrentcourse, width = 15, orient = tk.HORIZONTAL);
         self.trackedcourse_panel = tk.Listbox(self.Fcurrentcourse, selectmode = tk.MULTIPLE, relief = tk.GROOVE,
                                               width = 28, bd = 2, bg = '#ffffff', highlightthickness = 0,
                                               font = font.Font(family = "Segoe UI", size = 14),
-                                              yscrollcommand = self.trackedcourse_scrollbar.set,
+                                              yscrollcommand = self.trackedcourse_vertical_scrollbar.set,
+                                              xscrollcommand = self.trackedcourse_horizontal_scrollbar.set,
                                               listvariable = self.display_tracked_course);
-        self.trackedcourse_scrollbar.grid(row = 1, column = 1, sticky = self.ALL_STICK);
+        self.trackedcourse_vertical_scrollbar.grid(row = 1, column = 1, sticky = self.ALL_STICK);
+        self.trackedcourse_horizontal_scrollbar.grid(row = 2, column = 0, sticky = self.ALL_STICK);
         self.trackedcourse_panel.grid(row = 1, column = 0, sticky = self.ALL_STICK);
-        self.trackedcourse_scrollbar.config(command = self.trackedcourse_panel.yview)
+        self.trackedcourse_vertical_scrollbar.config(command = self.trackedcourse_panel.yview);
+        self.trackedcourse_horizontal_scrollbar.config(command = self.trackedcourse_panel.xview);
 
-        self.trackedcourse_control_frame = W.Frame(self.Fcurrentcourse, 90, 0, hlt = 1, hlb = '#ff0000');
+        self.trackedcourse_control_frame = W.Frame(self.Fcurrentcourse, 90, 0, bg = '#B6B6B6');
         self.trackedcourse_control_frame.grid(row = 1, column = 2, sticky = self.ALL_STICK);
+        self.reset_button_icon = W.OpenImage(CURR_WORKING_DIR / "pics" / "reset_button.png");
+        self.reset_button = tk.Button(self.trackedcourse_control_frame, image = self.reset_button_icon,
+                                      bd = 0, highlightthickness = 0, cursor = 'hand2');
+        self.reset_button.bind('<Button-1>', self.reset_tracked_courses);
+        self.reset_button.pack(anchor = tk.CENTER, pady = 10);
+        self.delete_button_icon = W.OpenImage(CURR_WORKING_DIR / "pics" / "delete_button.png");
+        self.delete_button = tk.Button(self.trackedcourse_control_frame, image=self.delete_button_icon,
+                                      bd=0, highlightthickness=0, cursor='hand2');
+        self.delete_button.bind('<Button-1>', self.delete_selected_tracked_courses);
+        self.delete_button.pack(anchor = tk.CENTER, pady = 10);
+
 
         self.starttrack_button_frame = W.Frame(self.Fcurrentcourse, 400, 60);
-        self.starttrack_button_frame.grid(row = 2, column = 0, columnspan = 3, sticky = self.ALL_STICK);
+        self.starttrack_button_frame.grid(row = 3, column = 0, columnspan = 3, sticky = self.ALL_STICK);
         self.starttrack_button_icon = W.OpenImage(CURR_WORKING_DIR/"pics"/"start_tracking_button.png");
         self.starttrack_button = tk.Button(self.starttrack_button_frame, image = self.starttrack_button_icon,
                                            bd=0, highlightthickness=0, cursor = 'hand2');
@@ -376,7 +425,7 @@ class FunctionPage(P.Pages):
                                    font=font.Font(family="Segoe UI", size=-15),
                                    bg='#ffffff');
 
-        print(self.search_fields)
+        #print(self.search_fields)
 
         self.term_option_lists = tuple([ k for k in self.search_fields["YearTerm"] ]);
 

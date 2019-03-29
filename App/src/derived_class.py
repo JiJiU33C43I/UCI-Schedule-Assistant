@@ -50,7 +50,7 @@ class DerivedClass(Course):
     def __init__(self, course_obj: Course, Code = None, Type = None, Sec = None, Units = None, Instructor = None, Time = None,
                  Place = None, Final = None, Max = None, Enr = None, WL = None, Req = None, Rstr = None,
                  Textbooks = None, Web = None, Status = None):
-        Course.__init__(self, *(course_obj.name()));
+        Course.__init__(self, course_obj.quarter(), *(course_obj.name()));
         self.set_coursecode(Code);
         self.set_type(Type);
         self.set_section(Sec);
@@ -67,6 +67,7 @@ class DerivedClass(Course):
         self.set_textbooks(Textbooks);
         self.set_web(Web);
         self.set_status(Status);
+        self.set_description();
 
         self._sub_classes = [];
 
@@ -215,6 +216,12 @@ argument = {value}");
     def web(self) -> str:
         return self._web;
 
+    def set_status_based_on_algorithm(self):
+        if self.enr() >= self.max():
+            self._status = 'FULL';
+        else:
+            self._status = 'OPEN';
+
     def set_status(self, status:str):
         if status != None:
             if status.upper() not in STATUS_SET:
@@ -222,9 +229,16 @@ argument = {value}");
             self._status= status.upper();
         else:
             self._status = None;
+            self.set_status_based_on_algorithm();
 
     def status(self) -> str:
         return self._status;
+
+    def set_description(self):
+        self._description = f"{'-'.join(self.quarter().split())}:{self.coursecode()}";
+
+    def description(self):
+        return self._description;
 
 
 

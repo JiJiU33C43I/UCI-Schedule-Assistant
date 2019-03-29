@@ -105,10 +105,10 @@ class Pages:
         try:
             engine = web_scrape_engine.web_scrape_engine(user_input_dict);
             course_data = engine.extract_data();
-            print(course_data)
+            #print(course_data)
             if course_data == None:
                 raise self.SearchFailure("course_data = None");
-            return course_data_decoder.CourseDecoder(course_data);
+            return course_data_decoder.CourseDecoder(term_curr, course_data);
         except:
             raise self.SearchFailure("fatal error during search");
 

@@ -55,8 +55,9 @@ class DecodeCourseError(Exception):
 
 class CourseDecoder:
 
-    def __init__(self, course_data):
+    def __init__(self, quarter, course_data):
         self.course_obj_list = [];
+        self.quarter = quarter;
         self.generate_course_lists(course_data);
 
     def __len__(self):
@@ -79,11 +80,11 @@ class CourseDecoder:
         return False;
 
     @staticmethod
-    def decode_one_course(course:dict) -> Course:
+    def decode_one_course(quarter, course:dict) -> Course:
         '''
         course = { 'coursename': 'xxx', 'formalname':'xxx', '_derived_classes': [dict] }
         '''
-        current_course = Course(course['coursename'], course['formalname']);
+        current_course = Course(quarter, course['coursename'], course['formalname']);
         current_primary_class = None;
 
         if CourseDecoder.secondary_class_exists(course['_derived_classes']):
@@ -116,7 +117,7 @@ class CourseDecoder:
     def generate_course_lists(self, course_data):
         if course_data != None:
             for course in course_data:
-                current_course = CourseDecoder.decode_one_course(course);
+                current_course = CourseDecoder.decode_one_course(self.quarter, course);
                 self.course_obj_list.append(current_course);
 
     def get_course_lists(self):
@@ -133,7 +134,7 @@ if __name__ == '__main__':
 
     engine = web_scrape_engine.web_scrape_engine(user_input_dict);
     course_data = engine.extract_data();
-    CD = CourseDecoder(course_data);
+    CD = CourseDecoder(user_input_dict["YearTerm"], course_data);
 
     print("\n\n",course_data, "\n\n")
 
