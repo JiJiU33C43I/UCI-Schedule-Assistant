@@ -124,6 +124,150 @@ class FunctionPage(P.Pages):
     def _scroll_canvas(self, event):
         self.display_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units");
 
+
+    def return_display_one_course_function(self, course):
+        def display_class_info_on_canvas(derived_class, curr_x, curr_y, course_info_indent):
+            course_info_font = font.Font(family="Segoe UI", size=15);
+            curr_course_code = self.display_canvas.create_text(curr_x + course_info_indent[0], curr_y,
+                                                               text=f"{derived_class.coursecode()}",
+                                                               font=course_info_font,
+                                                               anchor = tk.W);
+            curr_course_type = self.display_canvas.create_text(curr_x + course_info_indent[1], curr_y,
+                                                               text=f"{derived_class.type()}",
+                                                               font=course_info_font,
+                                                               anchor = tk.W);
+            curr_course_section = self.display_canvas.create_text(curr_x + course_info_indent[2], curr_y,
+                                                                  text=f"{derived_class.section()}",
+                                                                  font=course_info_font,
+                                                                  anchor = tk.W);
+            curr_course_day = self.display_canvas.create_text(curr_x + course_info_indent[3], curr_y,
+                                                              text=f"{derived_class.day()}",
+                                                              font=course_info_font,
+                                                              anchor = tk.W);
+            curr_course_hour = self.display_canvas.create_text(curr_x + course_info_indent[4], curr_y,
+                                                               text=f"{derived_class.hour()}",
+                                                               font=course_info_font,
+                                                               anchor = tk.W);
+
+            curr_enr = derived_class.enr();
+            curr_max = derived_class.max();
+            curr_progress_percentage = tk.DoubleVar();
+            curr_progress_percentage.set((curr_enr/curr_max)*100 if (curr_enr <= curr_max and curr_max != 0) else 100);
+
+            full_progressbar_style = ttk.Style();
+            full_progressbar_style.theme_use('alt')
+            full_progressbar_style.map("Full.Horizontal.TProgressbar",
+                                       bordercolor = [('disabled', '#ff0000')],
+                                       background =  [('disabled', '#ff0000')],
+                                       troughcolor =  [('disabled', '#ffffff')],
+                                       thickness = [('disabled', 13)],
+                                       borderwidth = [('disabled', 0)]);
+            open_progressbar_style = ttk.Style();
+            open_progressbar_style.theme_use('alt')
+            open_progressbar_style.map("Open.Horizontal.TProgressbar",
+                                       bordercolor=[('disabled', '#15AC0A')],
+                                       background=[('disabled', '#15AC0A')],
+                                       troughcolor=[('disabled', '#ffffff')],
+                                       thickness = [('disabled', 13)],
+                                       borderwidth = [('disabled', 0)]);
+            wait_progressbar_style = ttk.Style();
+            wait_progressbar_style.theme_use('alt')
+            wait_progressbar_style.map("Wait.Horizontal.TProgressbar",
+                                       bordercolor=[('disabled', '#FF9200')],
+                                       background=[('disabled', '#FF9200')],
+                                       troughcolor=[('disabled', '#ffffff')],
+                                       thickness = [('disabled', 13)],
+                                       borderwidth = [('disabled', 0)]);
+            newonly_progressbar_style = ttk.Style();
+            newonly_progressbar_style.theme_use('alt')
+            newonly_progressbar_style.map("NewOnly.Horizontal.TProgressbar",
+                                          bordercolor=[('disabled', '#00BBFF')],
+                                          background=[('disabled', '#00BBFF')],
+                                          troughcolor=[('disabled', '#ffffff')],
+                                          thickness = [('disabled', 13)],
+                                          borderwidth = [('disabled', 0)]);
+            print(full_progressbar_style.layout('Full.Horizontal.TProgressbar'))
+            print(full_progressbar_style.element_options("Horizontal.Progressbar.trough"))
+            print(full_progressbar_style.element_options("Horizontal.Progressbar.pbar"))
+            if (derived_class.status() == "FULL"):
+                curr_style = "Full.Horizontal.TProgressbar";
+            elif (derived_class.status() == "WAITL"):
+                curr_style = "Wait.Horizontal.TProgressbar";
+            elif (derived_class.status() == "OPEN"):
+                curr_style = "Open.Horizontal.TProgressbar";
+            elif (derived_class.status() == "NEWONLY"):
+                curr_style = "NewOnly.Horizontal.TProgressbar";
+            curr_progress_bar = ttk.Progressbar(self.display_canvas, style = curr_style,
+                                                length=200, mode='determinate', orient=tk.HORIZONTAL,
+                                                variable = curr_progress_percentage);
+            curr_progress_bar.place(x = curr_x + course_info_indent[5], y = curr_y+3, anchor = tk.W);
+            progress_bar_window = self.display_canvas.create_window(curr_x + course_info_indent[5], curr_y + 3,
+                                                                    window= curr_progress_bar);
+            #curr_progress_bar.start();
+
+            if (derived_class.status() == "FULL"):
+                curr_status_info = self.display_canvas.create_text(curr_x + course_info_indent[6], curr_y,
+                                                                   text="[Full]",
+                                                                   font=course_info_font,
+                                                                   anchor = tk.W);
+            elif (derived_class.status() == "WAITL"):
+                curr_status_info = self.display_canvas.create_text(curr_x + course_info_indent[6], curr_y,
+                                                                   text="[WaitList : {}]".format(derived_class.wl()),
+                                                                   font=course_info_font,
+                                                                   anchor = tk.W);
+            elif (derived_class.status() == "NEWONLY"):
+                curr_status_info = self.display_canvas.create_text(curr_x + course_info_indent[6], curr_y,
+                                                                   text="[NewOnly]",
+                                                                   font=course_info_font,
+                                                                   anchor = tk.W);
+
+
+        def refresh_display_panel_to_show_one_course(event):
+            self.Fdisplaypanel.destroy();
+            self.Fdisplaypanel = W.Frame(self.PageFrame, 880, 650);
+            self.Fdisplaypanel.grid(column=1, row=1, rowspan=2);
+            self.display_canvas = W.Canvas(self.Fdisplaypanel, 860, 650, bg='#ffffff');
+            self.display_scroll = tk.Scrollbar(self.Fdisplaypanel, width=20, orient=tk.VERTICAL)
+            self.display_scroll.config(command=self.display_canvas.yview)
+            self.display_scroll.grid(row=0, column=1, sticky=self.ALL_STICK);
+            self.display_canvas.config(yscrollcommand=self.display_scroll.set);
+            self.display_canvas.grid(row=0, column=0, sticky=self.ALL_STICK);
+            self.Fdisplaypanel.bind_all("<MouseWheel>", self._scroll_canvas);
+
+            cn, fn = course.name();
+            curr_x,curr_y = (80,30);
+            self.display_canvas.create_text(curr_x, curr_y, text = cn,
+                                            font = font.Font(family = "Arial", size = 17),
+                                            anchor = tk.W);
+            self.display_canvas.create_text(curr_x+170, curr_y, text=fn,
+                                            font=font.Font(family="Arial", size=17, weight = "bold"),
+                                            anchor = tk.W);
+
+            self.add_button_img = W.OpenImage(CURR_WORKING_DIR / "pics" / "add_button.png");
+
+            curr_x,curr_y = (50, 80);
+            indented_width = 50;
+            next_increment_height = 50;
+            course_info_indent = (40,110,160,210,270,500,620);
+
+            for primary_course in course:
+                curr_add_button = self.display_canvas.create_image(curr_x, curr_y, image=self.add_button_img);
+                display_class_info_on_canvas(primary_course, curr_x, curr_y-1, course_info_indent);
+                curr_y += next_increment_height;
+                for secondary_course in primary_course:
+                    curr_add_button = self.display_canvas.create_image(curr_x+indented_width, curr_y, image=self.add_button_img);
+                    display_class_info_on_canvas(secondary_course, curr_x+indented_width, curr_y-1, course_info_indent);
+                    curr_y += next_increment_height;
+
+            print(curr_y)
+
+            self.display_canvas.config(scrollregion=(0, 0, 860, (curr_y if curr_y >= 650 else 650)));
+
+
+
+        return refresh_display_panel_to_show_one_course;
+
+
     def refresh_display_panel_to_show_courses(self):
         self.Fdisplaypanel.destroy();
         self.Fdisplaypanel = W.Frame(self.PageFrame, 880, 650);
@@ -134,7 +278,7 @@ class FunctionPage(P.Pages):
         self.display_scroll.grid(row = 0, column = 1, sticky = self.ALL_STICK);
         self.display_canvas.config(yscrollcommand = self.display_scroll.set);
         self.display_canvas.grid(row=0, column=0, sticky=self.ALL_STICK);
-        self.Fdisplaypanel.bind_all("<MouseWheel>", self._scroll_canvas)
+        self.Fdisplaypanel.bind_all("<MouseWheel>", self._scroll_canvas);
 
         curr_x, curr_y, w_rect, h_rect = (0,0,860,50);
         bright_color = True;
@@ -146,6 +290,7 @@ class FunctionPage(P.Pages):
             curr_rect = self.display_canvas.create_rectangle(curr_x, curr_y, curr_x + w_rect, curr_y + h_rect,
                                                              fill = ("#C9C9C9" if bright_color else "#FFFFFF"));
             self.clickable_rect.append(curr_rect);
+            self.display_canvas.tag_bind(curr_rect, '<Button-1>', func = self.return_display_one_course_function(course));
 
             curr_coursename = self.display_canvas.create_text(curr_x + 20, curr_y+h_rect/2,
                                                               font = font.Font(family = "Arial", size = 14),
@@ -157,8 +302,19 @@ class FunctionPage(P.Pages):
             bright_color = not bright_color;
 
 
-        
+
         self.display_canvas.config(scrollregion=(0,0,860,(curr_y if curr_y >= 650 else 650)));
+
+        def detect_clickable_in_canvas(event, self=self):
+            clickable_bbox_list = [ self.display_canvas.bbox(clickable) for clickable in self.clickable_rect ];
+            for x1, y1, x2, y2 in clickable_bbox_list:
+                if (x1 <= event.x <= x2) and (y1 <= event.y <= y2):
+                    self.display_canvas.config(cursor = 'hand2');
+                    #print('hand2')
+                    return;
+            self.display_canvas.config(cursor = 'arrow');
+
+        self.display_canvas.bind("<Motion>", detect_clickable_in_canvas)
 
 
     def Fheader_widgets(self):
@@ -201,7 +357,7 @@ class FunctionPage(P.Pages):
         self.starttrack_button_frame.grid(row = 2, column = 0, columnspan = 3, sticky = self.ALL_STICK);
         self.starttrack_button_icon = W.OpenImage(CURR_WORKING_DIR/"pics"/"start_tracking_button.png");
         self.starttrack_button = tk.Button(self.starttrack_button_frame, image = self.starttrack_button_icon,
-                                           bd=0, highlightthickness=0);
+                                           bd=0, highlightthickness=0, cursor = 'hand2');
 
         def temp_func(event):
             self.tracked_courses.add("hi");
@@ -267,7 +423,7 @@ class FunctionPage(P.Pages):
     def Setup_Button_Frame(self):
         self.search_submit_img = W.OpenImage(CURR_WORKING_DIR/"pics"/"search_submit_button.png");
         self.search_submit_button = tk.Button(self.searchcourse_button_frame, image=self.search_submit_img,
-                                              bd=0, highlightthickness=0);
+                                              bd=0, highlightthickness=0, cursor = 'hand2');
         self.search_submit_button.pack(pady = 15);
 
         def search_button_func(event):

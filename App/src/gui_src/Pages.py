@@ -31,8 +31,10 @@ SOFTWARE.
 import tkinter as tk
 import GuiWidgets as W;
 
+import pathlib
 from os import sys, path
 sys.path.append(path.dirname(path.dirname(__file__)))
+
 import smtp_engine
 import web_scrape_engine
 import update_course_data
@@ -43,6 +45,7 @@ import course_data_decoder
 #==          GLOBAL CONSTANTS         ==
 #=======================================
 DEBUGGING = True;
+CURR_WORKING_DIR = pathlib.Path.cwd();
 
 def get_current_os():
     operating_systems = {'linux1':'Linux', 'linux2':'Linux', 'darwin':'OS X', 'win32':'Windows'}

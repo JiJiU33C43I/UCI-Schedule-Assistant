@@ -132,6 +132,12 @@ argument = {value}");
     def time(self) -> tuple:
         return (self._day, self._hour);
 
+    def day(self) -> str:
+        return self._day;
+
+    def hour(self) -> str:
+        return self._hour;
+
     def set_place(self, place:str):
         self._place = place;
 
@@ -156,7 +162,8 @@ argument = {value}");
 
     def set_enr(self, enr:str):
         try:
-            int_enr = int(enr);
+            enr_lst = enr.split('/');
+            int_enr = int(enr_lst[len(enr_lst)-1]);
             self._enr = int_enr;
         except Exception:
             self._enr = None;

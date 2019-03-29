@@ -167,7 +167,7 @@ class HomePage(P.Pages):
     def Fsubmit_widgets(self):
         self.submit_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"home_submit_button.png");
         self.submit_button = tk.Button(self.Fsubmit, image = self.submit_button_image,
-                                       bd = 0, highlightthickness = 0);
+                                       bd = 0, highlightthickness = 0, cursor = 'hand2');
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
         def jump_to_FunctionPage(event, self = self):
@@ -206,7 +206,7 @@ class HomePage(P.Pages):
         self.moreinfo_button_image = W.OpenImage(CURR_WORKING_DIR/"pics"/"LearnMore_icon.png");
         self.moreinfo_button = tk.Button(self.Ffooter, image = self.moreinfo_button_image,
                                          bg = '#ffffff', pady = 9,
-                                         bd = 0, highlightthickness = 0);
+                                         bd = 0, highlightthickness = 0, cursor = 'hand2');
         self.moreinfo_button.pack(anchor = tk.E, padx = (0,6));
 
         def temp_func(event):
