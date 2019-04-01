@@ -105,7 +105,7 @@ class main_gui():
         # --------- Initialize the First Page --------- #
         page_id = ("HP", "FP", "AB");
         self.curr_page_id = "HP";
-        self.CurrentPage = HomePage.HomePage(self.MainFrame, self.account_name, self.account_password);
+        self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 
@@ -126,7 +126,7 @@ class main_gui():
                 self.CurrentPage = HomePage.HomePage(self.MainFrame, self.account_name, self.account_password);
             elif (self.CurrentPage.next_page_id == "FP"):
                 self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
-        print('GUI Refresh');
+        #print('GUI Refresh');
         self.Root.after(250, self.update)
 
 

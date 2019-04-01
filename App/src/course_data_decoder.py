@@ -32,8 +32,6 @@ SOFTWARE.
 from course import Course
 from derived_class import DerivedClass
 
-import web_scrape_engine
-
 
 #=======================================
 #==          GLOBAL CONSTANTS         ==
@@ -127,6 +125,8 @@ class CourseDecoder:
 #=======================================
 #==       DEBUGGING AND TESTING       ==
 #=======================================
+import web_scrape_engine
+
 if __name__ == '__main__':
 
     user_input_dict = {"YearTerm":"2019-14", "Dept":"CHEM"}

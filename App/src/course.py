@@ -44,6 +44,8 @@ SOFTWARE.
 class InvalidCourseException(Exception):
     pass;
 
+class InvalidOperandforCourse(Exception):
+    pass;
 
 class Course:
     def __init__(self, quarter, coursename, formalname = None):
@@ -60,8 +62,39 @@ class Course:
         for classes in self._derived_classes:
             yield classes;
 
+    def __getitem__(self, item:int):
+        if type(item) != int:
+            raise KeyError("'Course' object can only accept integer indexing")
+        else:
+            index = 0;
+            for classes in self:
+                if index == item:
+                    return classes;
+                else:
+                    index+= 1;
+            return None;
+
+
     def __len__(self):
         return len(self._derived_classes);
+
+    def __eq__(self, right):
+        if type(right) != Course:
+            raise InvalidOperandforCourse("== operators only works when both sides are of type 'Course'")
+        else:
+            if self.name() == right.name() and len(self) == len(right):
+                index = 0;
+                for i in range(len(self)):
+                    if self[i] != right[i]:
+                        return False
+                    i += 1;
+                return True;
+
+            else:
+                return False
+
+    def __ne__(self, right):
+        return not self.__eq__(right)
 
     def add(self, value):
         if not isinstance(value, Course):

@@ -32,7 +32,16 @@ import pathlib
 from os import sys, path
 sys.path.append(path.dirname(path.dirname(__file__)))
 
+import time
+import datetime
+import queue
+import threading
+
 from scrape_search_fields import scrape_fields
+from update_course_data import update_course_data
+import smtp_engine
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 import Pages as P
 import GuiWidgets as W
@@ -59,6 +68,8 @@ def get_current_os():
 
 CURR_OPERATING_SYSTEM = get_current_os();
 
+UPDATE_INTERVAL = 2;  # update the course data every {UPDATE_INTERVAL} seconds
+
 
 #=======================================
 #==            Source Code            ==
@@ -71,6 +82,7 @@ class FunctionPage(P.Pages):
         super().__init__(MainFrame, account_name, account_password);  # instantiate PageFrame
         self.page_id = "FP";
         self.next_page_id = "FP";
+        self.tracking = False;
 
         temp_search_field_engine = scrape_fields();
         temp_search_field_engine.start_to_scrape();
@@ -106,7 +118,7 @@ class FunctionPage(P.Pages):
         display_str = self.display_tracked_course.get().replace("'", " ").replace('"', " ").replace("(", " ").replace(")", " ").replace(",", " ");
         displaying_list = display_str.split();
         #print(displaying_list)
-        print(set([s for s in displaying_list if (displaying_list.index(s)%5==0)]));
+        #print(set([s for s in displaying_list if (displaying_list.index(s)%5==0)]));
         return set([s for s in displaying_list if (displaying_list.index(s)%5==0)]);
 
     def refresh_tracked_courses(self, display_widgets):
@@ -131,9 +143,13 @@ class FunctionPage(P.Pages):
 
     def return_add_tracked_course_function(self, course):
         def add_tracked_course(event):
-            current_canvas_button = event.widget.find_withtag("current");
-            event.widget.delete(current_canvas_button);
-            self.tracked_courses[course.description()] = course;
+            if not self.tracking:
+                current_canvas_button = event.widget.find_withtag("current");
+                event.widget.delete(current_canvas_button);
+                self.tracked_courses[course.description()] = course;
+            else:
+                popmsg.showwarning("Failed to add courses to tracking list",
+                                   "You are NOT ALLOWED to add course to tracking list after tracking has started.\n\nPlease STOP tracking first and then you might add your course");
         return add_tracked_course;
 
 
@@ -352,10 +368,10 @@ class FunctionPage(P.Pages):
 
         self.home_canvas.tag_bind(self.home_canvas_img1, '<Button-1>', func = temp_func);
 
-    def reset_tracked_courses(self,event):
+    def reset_tracked_courses(self):
         self.tracked_courses = dict();
 
-    def delete_selected_tracked_courses(self,event):
+    def delete_selected_tracked_courses(self):
         for line in range(self.trackedcourse_panel.size()):
             #print(line)
             if (self.trackedcourse_panel.selection_includes(line)):
@@ -364,6 +380,69 @@ class FunctionPage(P.Pages):
                 displaying_list = display_str.split();
                 selected_course_description = displaying_list[0];
                 del self.tracked_courses[selected_course_description];
+
+    def get_filter_for_tracked_courses(self) -> list:
+        filter_list = [];
+        for course_obj in self.tracked_courses.values():
+            filter_list.append( ( self.search_fields["YearTerm"][course_obj.quarter()] , course_obj.coursecode() ) )
+        return filter_list;
+
+    def send_emails_for_changed_course(self, changed_course_lst):
+        with open(CURR_WORKING_DIR / "send_email_about_changed_course.txt", 'r') as f1, open(CURR_WORKING_DIR / "course_info.txt", 'r') as f2:
+            acc_name = self.account_name.get();
+            acc_pw = self.account_password.get();
+            msg = MIMEMultipart();
+            msg['From'] = acc_name;
+            msg['To'] = acc_name;
+            msg['Subject'] = "UCI Schedule Assistant - CHANGE in the courses: {}".format(tuple([course.name()[0] for course in changed_course_lst]));
+            course_info = "";
+            course_info_template = f2.read();
+            for course in changed_course_lst:
+                for derived_class in course:
+                    coursename = f"{derived_class.name()[0]} : {derived_class.name()[1]}";
+                    course_info += course_info_template.format(coursename,
+                                                               derived_class.coursecode(),
+                                                               derived_class.type(),
+                                                               derived_class.time(),
+                                                               derived_class.rstr(),
+                                                               derived_class.status(),
+                                                               derived_class.max(),
+                                                               derived_class.enr(),
+                                                               derived_class.wl());
+            msg.attach(MIMEText(f1.read().format(datetime.datetime.now(), UPDATE_INTERVAL, course_info), 'html'));
+            self.send_email(acc_name, acc_pw, msg.as_string());
+
+    def detect_changes_for_tracked_courses(self):
+        while self.tracking:
+            print("waiting...")
+            while not self.synced_queue.empty():
+                print("queue is not empty, starting to get from queue...")
+                course_has_changed, changed_course_lst = self.synced_queue.get();
+                self.synced_queue.task_done();
+                if course_has_changed:
+                    print("Changes detected")
+                    self.send_emails_for_changed_course(changed_course_lst);
+                else:
+                    print("No changes detected")
+            print("queue is empty")
+
+            time.sleep(UPDATE_INTERVAL);
+
+
+    def start_threads_to_track(self):
+        print("starting to track courses")
+        self.synced_queue = queue.Queue();
+        tracked_courses_filter = self.get_filter_for_tracked_courses();
+        self.update_engine = update_course_data(tracked_courses_filter, FIFO_queue = self.synced_queue);
+        self.update_thread = threading.Thread(target = self.update_engine.start);
+        self.track_thread = threading.Thread(target = self.detect_changes_for_tracked_courses);
+        self.update_thread.start();
+        self.track_thread.start();
+
+
+    def stop_tracking_threads(self):
+        self.update_engine.terminate();
+
 
 
     def Fcurrentcourse_widgets(self):
@@ -392,26 +471,39 @@ class FunctionPage(P.Pages):
         self.trackedcourse_control_frame.grid(row = 1, column = 2, sticky = self.ALL_STICK);
         self.reset_button_icon = W.OpenImage(CURR_WORKING_DIR / "pics" / "reset_button.png");
         self.reset_button = tk.Button(self.trackedcourse_control_frame, image = self.reset_button_icon,
-                                      bd = 0, highlightthickness = 0, cursor = 'hand2');
-        self.reset_button.bind('<Button-1>', self.reset_tracked_courses);
+                                      bd = 0, highlightthickness = 0, cursor = 'hand2', command = self.reset_tracked_courses);
         self.reset_button.pack(anchor = tk.CENTER, pady = 40);
         self.delete_button_icon = W.OpenImage(CURR_WORKING_DIR / "pics" / "delete_button.png");
         self.delete_button = tk.Button(self.trackedcourse_control_frame, image=self.delete_button_icon,
-                                      bd=0, highlightthickness=0, cursor='hand2');
-        self.delete_button.bind('<Button-1>', self.delete_selected_tracked_courses);
+                                      bd=0, highlightthickness=0, cursor='hand2', command = self.delete_selected_tracked_courses);
         self.delete_button.pack(anchor = tk.CENTER, pady = 30);
 
 
         self.starttrack_button_frame = W.Frame(self.Fcurrentcourse, 400, 60);
         self.starttrack_button_frame.grid(row = 3, column = 0, columnspan = 3, sticky = self.ALL_STICK);
         self.starttrack_button_icon = W.OpenImage(CURR_WORKING_DIR/"pics"/"start_tracking_button.png");
+        self.stoptrack_button_icon = W.OpenImage(CURR_WORKING_DIR/"pics"/"stop_tracking_button.png");
         self.starttrack_button = tk.Button(self.starttrack_button_frame, image = self.starttrack_button_icon,
                                            bd=0, highlightthickness=0, cursor = 'hand2');
 
-        def temp_func(event):
-            self.tracked_courses.add("hi");
+        def start_tracking(event):
+            if not self.tracking:
+                self.starttrack_button.configure(image=self.stoptrack_button_icon);
+                self.trackedcourse_panel.configure(state = tk.DISABLED);
+                self.reset_button.configure(state = tk.DISABLED);
+                self.delete_button.configure(state = tk.DISABLED);
+                self.tracking = True;
+                self.start_threads_to_track();
 
-        self.starttrack_button.bind('<Button-1>', func=temp_func);
+            else:
+                self.starttrack_button.configure(image = self.starttrack_button_icon);
+                self.trackedcourse_panel.configure(state=tk.NORMAL);
+                self.reset_button.configure(state=tk.NORMAL);
+                self.delete_button.configure(state=tk.NORMAL);
+                self.tracking = False;
+                self.stop_tracking_threads();
+
+        self.starttrack_button.bind('<Button-1>', func=start_tracking);
         self.starttrack_button.pack(pady = 15);
 
         self.Fcurrentcourse.columnconfigure(0, weight = 1);

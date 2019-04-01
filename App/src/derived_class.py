@@ -33,7 +33,7 @@ from course import Course
 #=======================================
 #==          GLOBAL CONSTANTS         ==
 #=======================================
-RSTR_SET = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','S','R','X', ''};
+RSTR_SET = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','S','R','X',''};
 STATUS_SET = {'OPEN', 'NEWONLY', 'WAITL','FULL'};
 
 #=======================================
@@ -44,8 +44,12 @@ STATUS_SET = {'OPEN', 'NEWONLY', 'WAITL','FULL'};
 class InvalidClassAttribute(Exception):
     pass;
 
+class InvalidOperandforDerivedClass(Exception):
+    pass;
 
 class DerivedClass(Course):
+
+
 
     def __init__(self, course_obj: Course, Code = None, Type = None, Sec = None, Units = None, Instructor = None, Time = None,
                  Place = None, Final = None, Max = None, Enr = None, WL = None, Req = None, Rstr = None,
@@ -78,6 +82,24 @@ class DerivedClass(Course):
     def __len__(self):
         return len(self._sub_classes);
 
+    def __eq__(self, right):
+        if type(right) != DerivedClass:
+            raise InvalidOperandforDerivedClass("== operators only works when both sides are of type 'DerivedClass'");
+        else:
+            if (self.description() == right.description() and \
+                self.coursecode() == right.coursecode() and \
+                self.max() == right.max() and \
+                self.enr() == right.enr() and \
+                self.wl() == right.wl() and \
+                self.status() == right.status() and \
+                self.rstr() == right.rstr() ):
+                return True;
+            else:
+                return False;
+
+    def __ne__(self, right):
+        return not self.__eq__(right);
+
     def add(self, value):
         if not isinstance(value, DerivedClass):
             raise InvalidCourseException(f"{type(self)}.add(self, {value}): \
@@ -86,7 +108,7 @@ argument = {value}");
         self._sub_classes.append(value);
 
     def __str__(self):
-        return f"{self.coursecode()} {self.type()}";
+        return f"{self.coursecode()} {self.type()} {self.time()} {self.status()} {self.rstr()} {self.max()} {self.enr()} {self.wl()}";
 
     def set_coursecode(self, coursecode:str):
         self._coursecode = coursecode;
@@ -193,7 +215,9 @@ argument = {value}");
         return self._req;
 
     def set_rstr(self, rstr:str):
-        if rstr != None:
+        if rstr == '\n':
+            self._rstr = None;
+        elif rstr != None:
             list_rstr = rstr.replace(' ', '').replace('and','\n').upper().split('\n')
             if any([(r not in RSTR_SET) for r in list_rstr]):
                 raise InvalidClassAttribute(f"{type(self)}.set_rstr(self, {rstr}): unable to set restriction because restriction given is invalid;");

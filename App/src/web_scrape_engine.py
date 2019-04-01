@@ -211,7 +211,7 @@ class web_scrape_engine:
 #=======================================
 if __name__ == '__main__':
 
-    user_input_dict = {"YearTerm":"2019-14", "Dept":"EECS"}
+    user_input_dict = {"YearTerm":"2019-76", "Dept":"COMPSCI"}
     # You Might change/alter/add to the ^user_input_dict^ for the purpose of further testing
 
     engine = web_scrape_engine(user_input_dict);

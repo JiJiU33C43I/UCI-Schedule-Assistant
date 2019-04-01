@@ -1,0 +1,38 @@
+<html>
+    <body>
+        <p>Dear Users,</p>
+
+		<br/>
+
+		<p>
+        The UCI Schedule Assistant process has detected a CHANGE in one/multiple of your selected courses<a/>
+        </p>
+		
+		<p>
+		<b>
+		The change was detected at '{}' with a possible maximum delay of '{}' seconds.
+		</b>
+		
+		<i><u>
+			<br/>
+			Note: This is the time shown on the system where you run the UCI Schedule Assistant Application and thereby not guaranteed to be absolutely correct. 
+			<br/>
+			(One common example would be: if you are running this app on your Windows OS Laptop, the time we would be capturing will be the one shown at the bottom right corner of your Windows OS Laptop)
+		</u></i>
+		
+		
+		</p>
+		
+        <p>
+        The courses that have changed since either last time when changes are detected or the tracking started are:
+			{}
+        </p>
+
+        <br/>
+
+        <p>
+        Sincerely,<br/>
+        UCI Schedule Assistant App
+        </p>
+    </body>
+</html>

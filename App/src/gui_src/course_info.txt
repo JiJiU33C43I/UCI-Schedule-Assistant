@@ -1,0 +1,31 @@
+</br>
+</br>
+<p>
+<{}> 
+</br>
+	<p style="margin-left: 40px">
+		Description for the class: {} {} {} </br>
+	</p>
+	
+	<p style="margin-left: 40px">
+		Current Major Restriction of the course is: {} </br>
+	</p>
+	
+	<p style="margin-left: 40px">
+		Current Status of the course is: {} </br>
+	</p>
+	
+	<p style="margin-left: 40px">
+		Current Max Number of people in the course is: {} </br>
+	</p>
+	
+	<p style="margin-left: 40px">
+		Current enrolled people in the course is: {} </br>
+	</p>
+	
+	<p style="margin-left: 40px">
+		Current wailist of the course is: {} </br>
+	</p>
+</p>
+</br>
+</br>

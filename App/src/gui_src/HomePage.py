@@ -171,7 +171,7 @@ class HomePage(P.Pages):
         self.submit_button.pack(anchor = tk.W, padx = (577,0));
 
         def jump_to_FunctionPage(event, self = self):
-            print("jump to FunctionPage");
+            #print("jump to FunctionPage");
             try:
                 with open(CURR_WORKING_DIR / "initialization_email_msg.txt") as f:
                     acc_name = self.account_name.get();
