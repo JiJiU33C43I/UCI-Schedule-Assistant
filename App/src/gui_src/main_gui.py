@@ -105,7 +105,7 @@ class main_gui():
         # --------- Initialize the First Page --------- #
         page_id = ("HP", "FP", "AB");
         self.curr_page_id = "HP";
-        self.CurrentPage = FunctionPage.FunctionPage(self.MainFrame, self.account_name, self.account_password);
+        self.CurrentPage = HomePage.HomePage(self.MainFrame, self.account_name, self.account_password);
         # ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #
 
 

@@ -293,7 +293,7 @@ class FunctionPage(P.Pages):
         self.Fdisplaypanel.destroy();
         self.Fdisplaypanel = W.Frame(self.PageFrame, 880, 650);
         self.Fdisplaypanel.grid(column=1, row=1, rowspan=2);
-        self.display_canvas = W.Canvas(self.Fdisplaypanel, 860, 650, bg = '#BEF7A6');
+        self.display_canvas = W.Canvas(self.Fdisplaypanel, 860, 650, bg = '#ffffff');
         self.display_scroll = tk.Scrollbar(self.Fdisplaypanel, width = 20, orient = tk.VERTICAL)
         self.display_scroll.config(command = self.display_canvas.yview)
         self.display_scroll.grid(row = 0, column = 1, sticky = self.ALL_STICK);
@@ -394,12 +394,12 @@ class FunctionPage(P.Pages):
         self.reset_button = tk.Button(self.trackedcourse_control_frame, image = self.reset_button_icon,
                                       bd = 0, highlightthickness = 0, cursor = 'hand2');
         self.reset_button.bind('<Button-1>', self.reset_tracked_courses);
-        self.reset_button.pack(anchor = tk.CENTER, pady = 10);
+        self.reset_button.pack(anchor = tk.CENTER, pady = 40);
         self.delete_button_icon = W.OpenImage(CURR_WORKING_DIR / "pics" / "delete_button.png");
         self.delete_button = tk.Button(self.trackedcourse_control_frame, image=self.delete_button_icon,
                                       bd=0, highlightthickness=0, cursor='hand2');
         self.delete_button.bind('<Button-1>', self.delete_selected_tracked_courses);
-        self.delete_button.pack(anchor = tk.CENTER, pady = 10);
+        self.delete_button.pack(anchor = tk.CENTER, pady = 30);
 
 
         self.starttrack_button_frame = W.Frame(self.Fcurrentcourse, 400, 60);
