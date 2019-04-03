@@ -5,4 +5,4 @@ This is a project that aims to develop a multi-feature system with user interfac
 This project and repository is under the MIT License. You may review the details of [our MIT license here](https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/blob/master/LICENSE). Copyrights are reserved to all UCI-Schedule-Assitant Contributors.
 
 ## Project MileStones
-[Check out the Reached Goals in the wiki page](https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/wiki/Reached-Goals)
+[Check out the Milestones of this project in the wiki page](https://github.com/JiJiU33C43I/UCI-Schedule-Assistant/wiki/Reached-Goals)
